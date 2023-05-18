@@ -1,0 +1,201 @@
+@charset "UTF-8";
+
+
+.p_main {
+	width: 600px;
+	padding: 50px;
+	position:fixed;
+	top: 50%;
+	left: 50%;
+	-o-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%); 
+	background: #e0e0e0;
+	box-shadow:  20px 20px 60px #bebebe,  -20px -20px 60px #ffffff;
+	border-radius: 5px;	
+	color: #555;
+}
+
+.p_h1 {
+	text-align: center;
+	font-size: 25px;
+}
+
+.p_welcome {
+	margin: 10px auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.p_welcome a { 
+	color: dodgerblue
+}
+
+.p_welcome a:hover {
+	opacity: .7;
+	-o-transition: .3s;
+	-moz-transition: .3s;
+	-webkit-transition: .3s;
+	transition: .3s;
+}
+
+.p_err {
+	color: darkred;
+}
+
+
+.p_form {	
+	padding: 20px 0;
+	font-size: 16px;
+}
+.p_title, .p_text {
+	display: block;
+	width: 100%;
+	margin: 5px 0 0;
+}
+
+.p_span_wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.input {
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  padding: 1em;
+  background-color: #ccc;
+  box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+  transition: 300ms ease-in-out;
+}
+
+.input:focus {
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 13px 13px 100px #969696,
+             -13px -13px 100px #ffffff;
+}
+
+/*ファイル選択ボタン*/
+.p_img {
+	margin-bottom: 35px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+}
+.p_img label {
+	margin-left: 15px;
+}
+
+.img_ctn {
+	font-size: 12px;
+	color: #560bad;
+}
+
+label.button_f > input {
+	display: none;
+}
+
+.button_f {
+ --color: #560bad;
+ font-family: inherit;
+ display: inline-block;
+ width: 8em;
+ height: 2.6em;
+ line-height: 2.5em;
+ margin: 20px;
+ position: relative;
+ overflow: hidden;
+ border: 2px solid var(--color);
+ transition: color .5s;
+ z-index: 1;
+ font-size: 17px;
+ border-radius: 6px;
+ font-weight: 500;
+ color: var(--color);
+}
+
+.button_f:before {
+ content: "";
+ position: absolute;
+ z-index: -1;
+ background: var(--color);
+ height: 150px;
+ width: 200px;
+ border-radius: 50%;
+}
+
+.button_f:hover {
+ color: #fff;
+}
+
+.button_f:before {
+ top: 100%;
+ left: 100%;
+ transition: all .7s;
+}
+
+.button_f:hover:before {
+ top: -30px;
+ left: -30px;
+}
+
+.button_f:active:before {
+ background: #3a0ca3;
+ transition: background 0s;
+}
+
+
+
+/*送信、クリアボタン*/
+.p_button_set {
+	margin: 25px 10px 0;
+	display: flex;
+	justify-content: space-around;
+}
+
+.p_button {
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+}
+
+.p_button > input[type="submit"] {
+    width: 100%;
+    height: 100%;
+}
+
+.button {
+ width: 8em;
+ height: 3em;
+ line-height: 3em;
+ border-radius: 30em;
+ font-size: 15px;
+ font-family: inherit;
+ border: none;
+ position: relative;
+ overflow: hidden;
+ z-index: 1;
+ box-shadow: 6px 6px 12px #c5c5c5,
+             -6px -6px 12px #ffffff;
+}
+
+.button::before {
+ content: '';
+ width: 0;
+ height: 3em;
+ border-radius: 30em;
+ position: absolute;
+ top: 0;
+ left: 0;
+ background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+}
+
+.button:hover::before {
+ width: 8em;
+}
