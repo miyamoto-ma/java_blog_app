@@ -14,7 +14,7 @@
 	<h1 class="p_h1">投稿フォーム</h1>
 	<div class="p_welcome">
 		<p>ようこそ<c:out value="${loginUser.name}" />さん</p>
-		<a href="${WelcomeServlet} ">ブログ一覧へ</a>
+		<a href="WelcomeServlet">ブログ一覧へ</a>
 	</div>
 
 	<c:if test="${ErrMsg != null}">

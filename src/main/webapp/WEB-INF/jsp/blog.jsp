@@ -39,13 +39,13 @@
 <ul class="paginate">
 	<li>
 		<c:if test="${paginate.isExistPrePage()}">
-			<a href="${WelcomeServlet}?page=1">top</a>
+			<a href="WelcomeServlet?page=1">top</a>
 		</c:if>
 	</li>
 	
 	<li>
 		<c:if test="${paginate.isExistPrePage()}">
-			<a href="${WelcomeServlet}?page=${paginate.currentPage - 1}">≪</a>
+			<a href="WelcomeServlet?page=${paginate.currentPage - 1}">≪</a>
 		</c:if>
 	</li>
 	
@@ -56,13 +56,13 @@
 	
 	<li>
 		<c:if test="${paginate.isExistNextPage()}">
-			<a href="${WelcomeServlet}?page=${paginate.currentPage + 1}">≫</a>
+			<a href="WelcomeServlet?page=${paginate.currentPage + 1}">≫</a>
 		</c:if>
 	</li>
 	
 	<li>
 		<c:if test="${paginate.isExistNextPage()}">
-			<a href="${WelcomeServlet}?page=${paginate.maxPagesCount}">last</a>
+			<a href="WelcomeServlet?page=${paginate.maxPagesCount}">last</a>
 		</c:if>
 	</li>
 
