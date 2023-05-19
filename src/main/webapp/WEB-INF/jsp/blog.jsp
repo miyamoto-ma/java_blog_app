@@ -34,6 +34,39 @@
 	</li>
 </c:forEach>
 </ul>
+
+
+<ul class="paginate">
+	<li>
+		<c:if test="${paginate.isExistPrePage()}">
+			<a href="${WelcomeServlet}?page=1">top</a>
+		</c:if>
+	</li>
+	
+	<li>
+		<c:if test="${paginate.isExistPrePage()}">
+			<a href="${WelcomeServlet}?page=${paginate.currentPage - 1}">≪</a>
+		</c:if>
+	</li>
+	
+	<li>
+		<c:out value="${paginate.currentPage}" /> / <c:out value="${paginate.maxPagesCount}" />
+		(全<c:out value="${paginate.maxBlogsCount}" />件)
+	</li>
+	
+	<li>
+		<c:if test="${paginate.isExistNextPage()}">
+			<a href="${WelcomeServlet}?page=${paginate.currentPage + 1}">≫</a>
+		</c:if>
+	</li>
+	
+	<li>
+		<c:if test="${paginate.isExistNextPage()}">
+			<a href="${WelcomeServlet}?page=${paginate.maxPagesCount}">last</a>
+		</c:if>
+	</li>
+
+</ul>
 </div>
 </c:if>
 

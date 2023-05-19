@@ -60,3 +60,22 @@ li {
 .content .c_text {
 	padding: 10px;
 }
+
+/*ページネーション*/
+.paginate {
+	margin: 80px auto;
+	display: flex;
+	justify-content: center;
+}
+.paginate li {
+	display: inline-block;
+	margin: 0 1em;
+	padding: 0;
+}
+.paginate a {
+	color: mediumblue;
+	transition: .3s opacity;
+}
+.paginate a:hover {
+	opacity: .8;
+}

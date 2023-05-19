@@ -10,10 +10,13 @@ import model.Blog;
 public class BlogDAOTest {
 
 	public static void main(String[] args) {
-		testAddBlogOK();		// ブログを追加できた場合のテスト
-		testAddBlogNG();		// ブログを追加できなかった場合のテスト
+//		testAddBlogOK();		// ブログを追加できた場合のテスト
+//		testAddBlogNG();		// ブログを追加できなかった場合のテスト
 		testFindAll();			// ブログを取得できたかのテスト
-	}
+		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
+		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
+		testGetTotal();			// ブログの総数を取得する
+		}
 	public static void testAddBlogOK() {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -47,10 +50,46 @@ public class BlogDAOTest {
 	public static void testFindAll() {
 		BlogDAO dao = new BlogDAO();
 		List<Blog> result = dao.findAll();
-		if(result != null) {
+		if(result.size() > 0) {
 			System.out.println("testFindAll: 成功しました");
 		} else {
 			System.out.println("testFindAll: 失敗しました");
+		}
+	}
+	
+	public static void testFindByPageOK() {
+		long currentPage = 3;
+		int itemsPerPage = 10;
+		BlogDAO dao = new BlogDAO();
+		List<Blog> result = dao.findByPage(currentPage, itemsPerPage);
+		if(result.size() > 0) {
+			System.out.println("testFindByPageOK: 成功しました");
+		} else {
+			System.out.println("testFindByPageOK: 失敗しました");
+		}
+	}
+	
+	public static void testFindByPageNG() {
+		// 現在データが43行の状態。
+		long currentPage = 10;
+		int itemsPerPage = 10;
+		BlogDAO dao = new BlogDAO();
+		List<Blog> result = dao.findByPage(currentPage, itemsPerPage);
+		if(result.size() == 0) {
+			System.out.println("testFindByPageNG: 成功しました");
+		} else {
+			System.out.println("testFindByPageNG: 失敗しました");
+		}
+		
+	}
+	
+	public static void testGetTotal() {
+		BlogDAO dao = new BlogDAO();
+		long result = dao.getTotal();
+		if(result > 0) {
+			System.out.println("testGetTotal: 成功しました");
+		} else {
+			System.out.println("testGetTotal: 失敗しました");
 		}
 	}
 

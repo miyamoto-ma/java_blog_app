@@ -17,7 +17,7 @@
 <div class="l_button_set">
 	<div class="l_button button"><input type="submit" value="ログイン"></div>
 	<div class="l_button button"><input type="reset" value="クリア"></div>
-	<a class="l_button button" href="WelcomeServlet">戻る</a>
+	<a class="l_button button" href="${WelcomeServlet}">戻る</a>
 </div>
 </form>
 </main>

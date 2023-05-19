@@ -51,7 +51,6 @@ public class BlogDAO {
 		
 		// データベースへの接続
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			
 			// SELECT文を準備
 			String sql = "SELECT NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -69,14 +68,61 @@ public class BlogDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return blogs;
 		}
 		return blogs;
 	}
 	
-//	public long getMaxBlogLength() {
-//		long maxBlogLength = null;
-//		ReadJDBC jdbc = new ReadJDBC();
-//		jdbc.read();
-//	}
+	
+	// ブログ取得処理（ページネーション実装）
+	public  List<Blog> findByPage(long currentPage, int itemsPerPage) {
+		List<Blog> blogs = new ArrayList<> ();	// 戻り値となるブログリストを格納する
+		long offsetRows = (currentPage - 1) * itemsPerPage;	// 除外する行数（先頭から）
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "SELECT NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setLong(1,offsetRows);
+			pStmt.setInt(2,itemsPerPage);
+			ResultSet rs = pStmt.executeQuery();
+			while(rs.next()) {
+				int userId = rs.getInt("USER_ID");
+				String name = rs.getString("NAME");
+				String title = rs.getString("TITLE");
+				String text = rs.getString("TEXT");
+				String img = rs.getString("IMG");
+				String datetime = rs.getString("DATETIME");
+				Blog blog = new Blog(userId, name, title, text, img, datetime);
+				blogs.add(blog);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return blogs;
+		}
+		return blogs;
+	}
+	
+	
+	// ブログの総数を取得
+	public long getTotal() {
+		long total = 0;	// ブログの総数を格納する
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "SELECT COUNT(*) As count FROM BLOGS";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			ResultSet rs = pStmt.executeQuery();
+			if(rs.next()) {
+				total = rs.getLong("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return total;
+		}
+		System.out.println(total);
+		return total;
+	}
 }

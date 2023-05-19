@@ -6,15 +6,32 @@ import java.util.List;
 import dao.BlogDAO;
 
 public class BlogLogic {
+	// ブログの投稿処理
 	public boolean executeAdd(Blog blog) {
 		BlogDAO dao = new BlogDAO();
 		return dao.addBlog(blog);
 	}
 	
-	public List<Blog> executeFind() {
+	// ブログ内容をすべて取得
+	public List<Blog> executeFindAll() {
 		BlogDAO dao = new BlogDAO();
 		List<Blog> blogList = new ArrayList<>();
 		blogList = dao.findAll();
 		return blogList;
+	}
+	
+	// ブログ内容を1ページ分取得
+	public List<Blog> executeFindByPage(long currentPage, int itemsPerPage) {
+		BlogDAO dao = new BlogDAO();
+		List<Blog> blogList = new ArrayList<>();
+		blogList = dao.findByPage(currentPage, itemsPerPage);
+		return blogList;
+	}
+	
+	// ブログの総件数を取得
+	public long executeGetTotal() {
+		BlogDAO dao = new BlogDAO();
+		long total = dao.getTotal();
+		return total;
 	}
 }
