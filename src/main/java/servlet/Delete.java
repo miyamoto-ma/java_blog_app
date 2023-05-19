@@ -22,7 +22,6 @@ public class Delete extends HttpServlet {
 		Htmlspecialchars h = new Htmlspecialchars();
 		int id = Integer.parseInt(h.escape(request.getParameter("id")));
 		BlogLogic bo = new BlogLogic();
-		id = 2;
 		boolean result = bo.executeDelete(id);
 		if(result) {
 			// リダイレクト
