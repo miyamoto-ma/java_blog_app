@@ -23,9 +23,11 @@ public class Delete extends HttpServlet {
 		int id = Integer.parseInt(h.escape(request.getParameter("id")));
 		BlogLogic bo = new BlogLogic();
 		boolean result = bo.executeDelete(id);
+		
+		String paramPage =request.getParameter("page");
 		if(result) {
 			// リダイレクト
-			response.sendRedirect("WelcomeServlet");
+				response.sendRedirect("WelcomeServlet?page=" + paramPage);
 		} else {
 			request.setAttribute("ErrDelete", "投稿の削除に失敗しました");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/blog.jsp");

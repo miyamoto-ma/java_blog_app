@@ -124,7 +124,7 @@ public class BlogDAO {
 			e.printStackTrace();
 			return total;
 		}
-		System.out.println(total);
+//		System.out.println(total);
 		return total;
 	}
 	

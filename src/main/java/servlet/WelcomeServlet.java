@@ -57,10 +57,7 @@ public class WelcomeServlet extends HttpServlet {
 		// JavaBeansにセット
 		Paginate paginate = new Paginate(itemsPerPage, currentPage, maxBlogsCount, maxPagesCount, isExistPrePage, isExistNextPage);
 		HttpSession session = request.getSession();
-		session.setAttribute("paginate", paginate);		
-		System.out.println(paginate.isExistPrePage());
-		System.out.println(paginate.isExistNextPage());
-		System.out.println(paginate.getMaxPagesCount());
+		session.setAttribute("paginate", paginate);	
 		// ブログ一覧を取得
 		List<Blog> blogList = bo.executeFindByPage(currentPage, itemsPerPage);
 		ServletContext application = this.getServletContext();
