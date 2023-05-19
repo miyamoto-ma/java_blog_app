@@ -34,4 +34,10 @@ public class BlogLogic {
 		long total = dao.getTotal();
 		return total;
 	}
+	
+	// ブログの削除処理（投稿ユーザーのみ）
+	public boolean executeDelete(int id) {
+		BlogDAO dao = new BlogDAO();
+		return dao.deleteBlog(id);
+	}
 }

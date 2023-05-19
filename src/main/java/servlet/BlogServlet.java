@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import Function.Htmlspecialchars;
 import model.Account;
 import model.Blog;
 import model.BlogLogic;
@@ -31,8 +32,12 @@ public class BlogServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Account loginUser = (Account)session.getAttribute("loginUser");
 		int userId = loginUser.getId();
+
 		String title = request.getParameter("title");
 		String text = request.getParameter("text");
+		Htmlspecialchars h = new Htmlspecialchars();
+		if(title != null) { title =  h.escape(title); }
+		if(text != null) { text =  h.escape(text); }
 		// name属性がimgのファイルをPartオブジェクトとして取得
 		Part img = request.getPart("img");
 

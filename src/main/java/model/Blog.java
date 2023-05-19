@@ -1,6 +1,7 @@
 package model;
 
 public class Blog {
+	private int id;
 	private int userId;
 	private String name;
 	private String title;
@@ -15,7 +16,8 @@ public class Blog {
 		this.img = img;
 		this.datetime = datetime;
 	}
-	public Blog(int userId, String name, String title, String text, String img, String datetime) {
+	public Blog(int id, int userId, String name, String title, String text, String img, String datetime) {
+		this.id = id;
 		this.userId = userId;
 		this.name = name;
 		this.title = title;
@@ -24,6 +26,7 @@ public class Blog {
 		this.datetime = datetime;
 	}
 	
+	public int getId() { return id; }
 	public int getUserId() { return userId; }
 	public String getName() { return name; }
 	public String getTitle() { return title; }

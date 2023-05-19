@@ -19,8 +19,13 @@
 </div>
 </header>
 
+
 <c:if test="${blogList != null}">
 <div class="content">
+<c:if test="${ErrDelete != null}">
+	<p class="err_msg"><c:out value="※${ErrDelete}" /></p>
+</c:if>
+
 <ul>
 <c:forEach var="blog" items="${blogList}">
 	<li>
@@ -31,6 +36,11 @@
 	</c:if>
 	<div class="c_text"><c:out value="${blog.text}" /></div>
 	<p class="c_datetime"><c:out value="${blog.datetime}" /></p>
+	
+	<c:if test="${blog.userId == loginUser.id}">
+		<a href="Delete?id=${blog.id}">削除</a>
+	</c:if>
+	
 	</li>
 </c:forEach>
 </ul>

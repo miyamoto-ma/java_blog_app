@@ -52,18 +52,19 @@ public class BlogDAO {
 		// データベースへの接続
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 			// SELECT文を準備
-			String sql = "SELECT NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC";
+			String sql = "SELECT BLOGS.ID As ID, NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			// SELECT文を実行し、結果表を取得
 			ResultSet rs = pStmt.executeQuery();
 			while(rs.next()) {
+				int id = rs.getInt("ID");
 				int userId = rs.getInt("USER_ID");
 				String name = rs.getString("NAME");
 				String title = rs.getString("TITLE");
 				String text = rs.getString("TEXT");
 				String img = rs.getString("IMG");
 				String datetime = rs.getString("DATETIME");
-				Blog blog = new Blog(userId, name, title, text, img, datetime);
+				Blog blog = new Blog(id, userId, name, title, text, img, datetime);
 				blogs.add(blog);
 			}
 		} catch (SQLException e) {
@@ -82,19 +83,20 @@ public class BlogDAO {
 		jdbc.read();
 		
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "SELECT NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+			String sql = "SELECT BLOGS.ID As ID, NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setLong(1,offsetRows);
 			pStmt.setInt(2,itemsPerPage);
 			ResultSet rs = pStmt.executeQuery();
 			while(rs.next()) {
+				int id = rs.getInt("ID");
 				int userId = rs.getInt("USER_ID");
 				String name = rs.getString("NAME");
 				String title = rs.getString("TITLE");
 				String text = rs.getString("TEXT");
 				String img = rs.getString("IMG");
 				String datetime = rs.getString("DATETIME");
-				Blog blog = new Blog(userId, name, title, text, img, datetime);
+				Blog blog = new Blog(id, userId, name, title, text, img, datetime);
 				blogs.add(blog);
 			}
 		} catch (SQLException e) {
@@ -125,4 +127,28 @@ public class BlogDAO {
 		System.out.println(total);
 		return total;
 	}
+	
+	// ブログの削除処理（書いた人のみ）
+	public boolean deleteBlog(int blogId) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		// データベースへの接続
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			// INSERT文の準備
+			String sql = "DELETE FROM BLOGS WHERE ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, blogId);
+			// INSERT文を実行して、結果を取得
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

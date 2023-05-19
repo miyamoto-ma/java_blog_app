@@ -15,6 +15,8 @@ public class BlogLogicTest {
 		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
 		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
 //		testExecuteGetTotal();			// ブログ総件数取得のテスト
+//		testExecuteDeleteOK();				// ブログ削除成功のテスト
+//		testExecuteDeleteNG();				// ブログ削除失敗のテスト
 	}
 	public static void testExecuteAddOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -97,4 +99,28 @@ public class BlogLogicTest {
 			System.out.println(total);
 		}
 	}
+	
+	public static void testExecuteDeleteOK() {
+		// 先にサーバーで、IDの存在を確認しておく。
+		BlogLogic bo = new BlogLogic();
+		boolean result = bo.executeDelete(4);
+		System.out.println(result);
+		if(result) {
+			System.out.println("testExecuteDeleteOK: 成功しました");
+		} else {
+			System.out.println("testExecuteDeleteOK: 失敗しました");
+		}
+	}
+	
+	public static void testExecuteDeleteNG() {
+		BlogLogic bo = new BlogLogic();
+		boolean result = bo.executeDelete(1000);	// 現状存在しないID
+		System.out.println(result);
+		if(!result) {
+			System.out.println("testExecuteDeleteOK: 成功しました");
+		} else {
+			System.out.println("testExecuteDeleteOK: 失敗しました");
+		}
+	}
+	
 }

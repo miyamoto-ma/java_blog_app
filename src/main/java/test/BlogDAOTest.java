@@ -16,6 +16,8 @@ public class BlogDAOTest {
 		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
 		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
 		testGetTotal();			// ブログの総数を取得する
+//		testDeleteBlogOK();			// ブログを削除できた場合のテスト
+//		testDeleteBlogNG();			// ブログを削除できなかった場合のテスト
 		}
 	public static void testAddBlogOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -93,4 +95,26 @@ public class BlogDAOTest {
 		}
 	}
 
+	public static void testDeleteBlogOK() {	
+		// サーバーで先にテストするIDが存在するか調べておく。
+		BlogDAO dao = new BlogDAO();
+		boolean result = dao.deleteBlog(2);
+		System.out.println(result);
+		if(result) {
+			System.out.println("testDeleteBlogOK: 成功しました");
+		} else {
+			System.out.println("testDeleteBlogOK: 失敗しました");
+		}
+	}
+	
+	public static void testDeleteBlogNG() {
+		BlogDAO dao = new BlogDAO();
+		boolean result = dao.deleteBlog(1000);	// 現状存在しないID
+		System.out.println(result);
+		if(!result) {
+			System.out.println("testDeleteBlogNG: 成功しました");
+		} else {
+			System.out.println("testDeleteBlogNG: 失敗しました");
+		}
+	}
 }

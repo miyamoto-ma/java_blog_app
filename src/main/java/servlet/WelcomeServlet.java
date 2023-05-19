@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Function.Htmlspecialchars;
 import model.Blog;
 import model.BlogLogic;
 import model.Paginate;
@@ -37,9 +38,11 @@ public class WelcomeServlet extends HttpServlet {
 		maxPagesCount = (maxBlogsCount / itemsPerPage) + 1;
 		
 		// 現在のページを取得
-		String paramPage = request.getParameter("page");	// URLから現在ページを取得
+		String paramPage =request.getParameter("page");	// URLから現在ページを取得
 		if(paramPage != null) {
-			long paramPageLong = Long.parseLong(request.getParameter("page"));	// 上記をlong型に変換
+			Htmlspecialchars h = new Htmlspecialchars();
+			paramPage = h.escape(paramPage);
+			long paramPageLong = Long.parseLong(paramPage);	// 上記をlong型に変換
 			if(paramPage.length() > 0 && paramPageLong > 0 && paramPageLong <= maxPagesCount) {
 				currentPage = paramPageLong;
 			}
