@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import Function.Htmlspecialchars;
 import model.BlogLogic;
 
-@WebServlet("/Delete")
-public class Delete extends HttpServlet {
+@WebServlet("/DeleteServlet")
+public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

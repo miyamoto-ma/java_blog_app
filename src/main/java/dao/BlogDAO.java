@@ -150,5 +150,6 @@ public class BlogDAO {
 		return true;
 	}
 	
+//	public boolean updateBlog(Blog blog)
 	
 }

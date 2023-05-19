@@ -22,6 +22,7 @@
 
 <c:if test="${blogList != null}">
 <div class="content">
+
 <c:if test="${ErrDelete != null}">
 	<p class="err_msg"><c:out value="※${ErrDelete}" /></p>
 </c:if>
@@ -38,7 +39,7 @@
 	<p class="c_datetime"><c:out value="${blog.datetime}" /></p>
 	
 	<c:if test="${blog.userId == loginUser.id}">
-		<a id="delete" href="Delete?id=${blog.id}&page=${paginate.currentPage}" onclick="return confirm('削除しますか？')">削除</a>
+		<a id="delete" href="DeleteServlet?id=${blog.id}&page=${paginate.currentPage}" onclick="return confirm('削除しますか？')">削除</a>
 	</c:if>
 	
 	</li>

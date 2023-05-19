@@ -35,7 +35,7 @@ public class WelcomeServlet extends HttpServlet {
 		maxBlogsCount = bo.executeGetTotal();
 		
 		// ページの総数を取得
-		maxPagesCount = (maxBlogsCount / itemsPerPage) + 1;
+		maxPagesCount = ((maxBlogsCount - 1) / itemsPerPage) + 1;
 		
 		// 現在のページを取得
 		String paramPage =request.getParameter("page");	// URLから現在ページを取得
