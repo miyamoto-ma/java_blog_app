@@ -7,6 +7,9 @@ li {
 .err_msg {
 	color: darkred;
 }
+.normal_msg {
+	color: mediumblue;
+}
 
 .header {
 	width: 100%;
@@ -15,6 +18,17 @@ li {
 	top:0;
 	background-color: #333;
 	color: #ddd;
+}
+.header ul {
+	display: flex;
+}
+
+.header ul li {
+	margin-left: 1em;
+	transition: .3s opacity;
+}
+.header ul li:hover {
+	opacity: .7;
 }
 
 .h_wrap {
@@ -61,6 +75,10 @@ li {
 }
 .content .c_author_wrap > a {
 	color: #560bad;
+	transition: .3s opacity;
+}
+.content .c_author_wrap > a:hover {
+	opacity: .7;
 }
 .content .c_img {
 	width: 30%;	

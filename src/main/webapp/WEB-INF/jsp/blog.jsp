@@ -15,6 +15,10 @@
 <h1>MyBlogPage</h1>
 <ul>
 <li><a href="LoginServlet">ログイン</a></li>
+<c:if test="${loginUser != null}">
+	<li><a href="PostingServlet">投稿</a></li>
+	<li><a href="LogoutServlet">ログアウト</a></li>
+</c:if>
 </ul>
 </div>
 </header>
@@ -25,6 +29,9 @@
 
 <c:if test="${ErrMsg != null}">
 	<p class="err_msg"><c:out value="※${ErrMsg}" /></p>
+</c:if>
+<c:if test="${NormalMsg != null}">
+	<p class="normal_msg"><c:out value="※${NormalMsg}" /></p>
 </c:if>
 
 <ul>
