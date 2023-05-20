@@ -68,8 +68,17 @@ charCount(input_title, char_title);
 charCount(textarea_text, char_text);
 
 
+// 画像プレビュー
+let file = document.getElementById("file");
+let reader = new FileReader();
 
-
+reader.addEventListener("load", function() {
+	document.getElementById("new_img").src = reader.result;
+}, false);
+file.addEventListener("change", function(e) {
+	let input = file.files[0];
+	reader.readAsDataURL(input);
+}, false);
 
 
 

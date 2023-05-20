@@ -29,7 +29,7 @@ public class DeleteServlet extends HttpServlet {
 			// リダイレクト
 				response.sendRedirect("WelcomeServlet?page=" + paramPage);
 		} else {
-			request.setAttribute("ErrDelete", "投稿の削除に失敗しました");
+			request.setAttribute("ErrMsg", "投稿の削除に失敗しました");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/blog.jsp");
 			dispatcher.forward(request, response);
 		}

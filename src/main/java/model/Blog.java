@@ -9,6 +9,14 @@ public class Blog {
 	private String img;
 	private String datetime;
 	
+	
+	public Blog(int id, String title, String text, String img) {
+		this.id = id;
+		this.title = title;
+		this.text = text;
+		this.img = img;
+	}
+	
 	public Blog(int userId, String title, String text, String img, String datetime) {
 		this.userId = userId;
 		this.title = title;

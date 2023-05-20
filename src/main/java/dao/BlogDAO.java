@@ -150,6 +150,28 @@ public class BlogDAO {
 		return true;
 	}
 	
-//	public boolean updateBlog(Blog blog)
+	// ブログの編集処理
+	public boolean updateBlog(Blog blog) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		// データベースへの接続
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			// UPDATE文の準備
+			String sql = "UPDATE BLOGS SET TITLE = ?, TEXT = ?, IMG = ? WHERE ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, blog.getTitle());
+			pStmt.setString(2, blog.getText());
+			pStmt.setString(3, blog.getImg());
+			pStmt.setInt(4, blog.getId());
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
 }

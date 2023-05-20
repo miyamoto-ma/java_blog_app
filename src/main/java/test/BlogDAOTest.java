@@ -12,12 +12,14 @@ public class BlogDAOTest {
 	public static void main(String[] args) {
 //		testAddBlogOK();		// ブログを追加できた場合のテスト
 //		testAddBlogNG();		// ブログを追加できなかった場合のテスト
-		testFindAll();			// ブログを取得できたかのテスト
-		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
-		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
-		testGetTotal();			// ブログの総数を取得する
+//		testFindAll();			// ブログを取得できたかのテスト
+//		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
+//		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
+//		testGetTotal();			// ブログの総数を取得する
 //		testDeleteBlogOK();			// ブログを削除できた場合のテスト
 //		testDeleteBlogNG();			// ブログを削除できなかった場合のテスト
+//		testUpdateBlogOK();			// ブログを更新できた場合のテスト
+//		testUpdateBlogNG();			// ブログを更新できなかった場合のテスト
 		}
 	public static void testAddBlogOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -115,6 +117,29 @@ public class BlogDAOTest {
 			System.out.println("testDeleteBlogNG: 成功しました");
 		} else {
 			System.out.println("testDeleteBlogNG: 失敗しました");
+		}
+	}
+	
+	public static void testUpdateBlogOK() {
+		// 存在するIDを確認しておく。
+		BlogDAO dao = new BlogDAO();
+		Blog blog = new Blog(14, "testUpdateBlogOK", "これはtestUpdateBlogOK用のデータです", "");
+		boolean result = dao.updateBlog(blog);
+		if (result) {
+			System.out.println("testUpdateBlogOK: 成功しました");
+		} else {
+			System.out.println("testUpdateBlogOK: 失敗しました");
+		}
+	}
+	
+	public static void testUpdateBlogNG() {
+		BlogDAO dao = new BlogDAO();
+		Blog blog = new Blog(1000, "testUpdateBlogOK", "これはtestUpdateBlogNG用のデータです", "");
+		boolean result = dao.updateBlog(blog);
+		if (!result) {
+			System.out.println("testUpdateBlogNG: 成功しました");
+		} else {
+			System.out.println("testUpdateBlogNG: 失敗しました");
 		}
 	}
 }

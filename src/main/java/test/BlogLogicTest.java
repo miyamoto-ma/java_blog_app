@@ -11,12 +11,14 @@ public class BlogLogicTest {
 	public static void main(String[] args) {
 //		testExecuteAddOK();		// ブログ追加成功のテスト
 //		testExecuteAddNG();		// ブログ追加失敗のテスト
-		testExecuteFindAll();			// ブログ一覧取得のテスト
-		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
-		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
+//		testExecuteFindAll();			// ブログ一覧取得のテスト
+//		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
+//		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
 //		testExecuteGetTotal();			// ブログ総件数取得のテスト
 //		testExecuteDeleteOK();				// ブログ削除成功のテスト
 //		testExecuteDeleteNG();				// ブログ削除失敗のテスト
+		testExecuteUpdateOK();			// ブログ編集成功のテスト
+		testExecuteUpdateNG();			// ブログ編集失敗のテスト
 	}
 	public static void testExecuteAddOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -120,6 +122,29 @@ public class BlogLogicTest {
 			System.out.println("testExecuteDeleteOK: 成功しました");
 		} else {
 			System.out.println("testExecuteDeleteOK: 失敗しました");
+		}
+	}
+	
+	public static void testExecuteUpdateOK() {
+		// 先にサーバーに存在するデータを確認しておく。
+		BlogLogic bo = new BlogLogic();
+		Blog blog = new Blog(16, "testExecuteUpdateOK", "これはtestExecuteUpdateOK用データです", "");
+		boolean result = bo.executeUpdate(blog);
+		if(result) {
+			System.out.println("testExecuteUpdateOK: 成功しました");
+		} else {
+			System.out.println("testExecuteUpdateOK: 失敗しました");
+		}
+	}
+	
+	public static void testExecuteUpdateNG() {
+		BlogLogic bo = new BlogLogic();
+		Blog blog = new Blog(1000, "testExecuteUpdateOK", "これはtestExecuteUpdateOK用データです", "");
+		boolean result = bo.executeUpdate(blog);
+		if(!result) {
+			System.out.println("testExecuteUpdateNG: 成功しました");
+		} else {
+			System.out.println("testExecuteUpdateNG: 失敗しました");
 		}
 	}
 	

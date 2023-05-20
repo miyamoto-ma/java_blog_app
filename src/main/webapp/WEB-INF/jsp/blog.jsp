@@ -23,29 +23,33 @@
 <c:if test="${blogList != null}">
 <div class="content">
 
-<c:if test="${ErrDelete != null}">
-	<p class="err_msg"><c:out value="※${ErrDelete}" /></p>
+<c:if test="${ErrMsg != null}">
+	<p class="err_msg"><c:out value="※${ErrMsg}" /></p>
 </c:if>
 
 <ul>
 <c:forEach var="blog" items="${blogList}">
 	<li>
 	<p class="c_title"><c:out value="${blog.title}" /></p>
-	<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
-	<c:if test="${blog.img.length() !=  null}">
-		<img class="c_img" src="/blog/upload/${blog.img}" />
-	</c:if>
-	<div class="c_text"><c:out value="${blog.text}" /></div>
-	<p class="c_datetime"><c:out value="${blog.datetime}" /></p>
-	
-	<c:if test="${blog.userId == loginUser.id}">
-		<a id="delete" href="DeleteServlet?id=${blog.id}&page=${paginate.currentPage}" onclick="return confirm('削除しますか？')">削除</a>
-	</c:if>
+
+	<div class="blog_wrap">
+		<c:if test="${not empty blog.img}">
+			<img class="c_img" src="/blog/upload/${blog.img}" />
+		</c:if>
+		<div class="c_text"><c:out value="${blog.text}" /></div>
+			<p class="c_author_wrap">
+			<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
+			<span class="c_datetime"><c:out value="[ ${blog.datetime} ]" /></span>
+			<c:if test="${blog.userId == loginUser.id}">
+				<a id="update" href="UpdateServlet?page=${paginate.currentPage}&id=${blog.id}&title=${blog.title}&text=${blog.text}&img=${blog.img}">編集</a>
+				<a id="delete" href="DeleteServlet?id=${blog.id}&page=${paginate.currentPage}" onclick="return confirm('削除しますか？')">削除</a>
+			</c:if>
+		</p>
+	</div>
 	
 	</li>
 </c:forEach>
 </ul>
-
 
 <ul class="paginate">
 	<li>

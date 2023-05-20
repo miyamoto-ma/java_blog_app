@@ -47,11 +47,21 @@ li {
 	font-size: 25px;
 }
 
-.content .c_author {
-	display: block;
-	text-align: right;
+.blog_wrap {
+    max-width: 880px;
+    margin: 20px auto;
 }
-
+.content .c_author_wrap {
+	display: flex;
+	justify-content: flex-end;
+}
+.content .c_author_wrap > span,
+.content .c_author_wrap > a {
+	margin-left: 1em;
+}
+.content .c_author_wrap > a {
+	color: #560bad;
+}
 .content .c_img {
 	width: 30%;	
 	margin-bottom: 15px;

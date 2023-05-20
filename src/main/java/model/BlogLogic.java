@@ -40,4 +40,10 @@ public class BlogLogic {
 		BlogDAO dao = new BlogDAO();
 		return dao.deleteBlog(id);
 	}
+	
+	// ブログの編集処理（投稿ユーザーのみ）
+	public boolean executeUpdate(Blog blog) {
+		BlogDAO dao = new BlogDAO();
+		return dao.updateBlog(blog);
+	}
 }

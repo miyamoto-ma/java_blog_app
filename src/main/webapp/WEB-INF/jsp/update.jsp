@@ -5,46 +5,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MyBlogPage - 新規投稿 -</title>
+<title>MyBlogPage - 投稿編集 -</title>
 <link rel="stylesheet" type="text/css" href="/blog/css/destyle.min.css">
 <link rel="stylesheet" type="text/css" href="/blog/css/writingAndUpdate.css">
-<link rel="stylesheet" type="text/css" href="/blog/css/writing.css">
 </head>
 <body>
 <main class="p_main">
-	<h1 class="p_h1">投稿フォーム</h1>
+	<h1 class="p_h1">編集フォーム</h1>
 	<div class="p_welcome">
 		<p>ようこそ<c:out value="${loginUser.name}" />さん</p>
-		<a href="WelcomeServlet">ブログ一覧へ</a>
+		<a href="WelcomeServlet?page=${param.page}">ブログ一覧に戻る</a>
 	</div>
 
 	<c:if test="${ErrMsg != null}">
 		<p class="p_err"><c:out value="※${ErrMsg}" /></p>
-	</c:if>	
+	</c:if>
 	
-	<form class="p_form" action="BlogServlet" method="post" enctype="multipart/form-data">
+	<form class="p_form" action="UpdateServlet?id=${param.id}&page=${param.page}" method="post" enctype="multipart/form-data">
 		<div class="p_span_wrap">
 			<span class="p_span">タイトル(100文字以内)：</span><p><span id="char_title">0</span>/100</p>
 		</div>
-		<input id="p_title" class="p_title input" type="text" name="title" required maxlength="100"><br>
+		<input id="p_title" class="p_title input" type="text" name="title" required maxlength="100" value="${param.title}"><br>
 		<div class="p_span_wrap">
 			<span class="p_span">内容(400文字以内)：</span><p><span id="char_text">0</span>/400</p>
 		</div>
-		<textarea id="p_text" class="p_text input" name="text" required maxlength="400"></textarea><br>
+		<textarea id="p_text" class="p_text input" name="text" required maxlength="400"><c:out value="${param.text}"></c:out></textarea><br>
 		<div class="p_img">
 			<span class="p_span">画像(任意)：</span>
+
 			<label class="p_button button_f">
 				ファイル選択
-				<input id="file" type="file" name="img" accept=".jpg, .jpeg, .gif">	
+				<input id="file" type="file" name="img" accept=".jpg, .jpeg, .gif">
 			</label>
-			<span class="img_ctn">※.jpg, .jpeg, .gif画像のみ(1MB以内)</span>
+			<span class="img_ctn">※.jpg, .jpeg, .gif画像のみ(1MB以内)</span>						
 		</div>
-		<div class="preview">
-			<div class="new_prev">
-				プレビュー：
-				<img id="new_img">
+			<label class="p_change">
+				<input type="checkbox" name="changeImg" value="true" />
+				画像を変更する
+			</label>
+			<input type="hidden" name="currentImg" value="${param.img}" />
+			
+			<div class="preview">
+				<div class="current_prev">
+					現在の画像：
+					<c:if test="${not empty param.img}">
+					<img src="/blog/upload/${param.img}"  />
+					</c:if>
+				</div>
+				<div class="new_prev">
+					変更後の画像：
+					<img id="new_img">
+				</div>
 			</div>
-		</div>
+
 		<div class="p_button_set">
 			<div class="p_button button"><input type="submit" value="投稿"></div>
 			<div class="p_button button"><input type="reset" value="クリア"></div>
