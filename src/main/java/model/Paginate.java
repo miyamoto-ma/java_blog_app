@@ -1,6 +1,8 @@
 package model;
 
-public class Paginate {
+import java.io.Serializable;
+
+public class Paginate implements Serializable {
 	private int itemsPerPage = 10;		// 1ページあたりの表示件数  
 	private long currentPage = 1; 		// 現在のページ
 	private long maxBlogsCount;			// ブログの総件数

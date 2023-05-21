@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import Function.Htmlspecialchars;
@@ -23,6 +24,13 @@ public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		Htmlspecialchars h = new Htmlspecialchars();
+		int id = Integer.parseInt(h.escape(request.getParameter("id")));
+		BlogLogic bo = new BlogLogic();
+		Blog blog = bo.executeFindById(id);
+		HttpSession session = request.getSession();
+		session.setAttribute("currentBlog", blog);		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/update.jsp");
 		dispatcher.forward(request, response);
 	}

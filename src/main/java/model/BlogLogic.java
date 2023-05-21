@@ -20,6 +20,13 @@ public class BlogLogic {
 		return blogList;
 	}
 	
+	// ブログ1件分を取得
+	public Blog executeFindById(int id) {
+		BlogDAO dao = new BlogDAO();
+		Blog blog = dao.findById(id);
+		return blog;
+	}
+	
 	// ブログ内容を1ページ分取得
 	public List<Blog> executeFindByPage(long currentPage, int itemsPerPage) {
 		BlogDAO dao = new BlogDAO();

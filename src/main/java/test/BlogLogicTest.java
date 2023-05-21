@@ -12,13 +12,15 @@ public class BlogLogicTest {
 //		testExecuteAddOK();		// ブログ追加成功のテスト
 //		testExecuteAddNG();		// ブログ追加失敗のテスト
 //		testExecuteFindAll();			// ブログ一覧取得のテスト
+		testExecuteFindByIdOK();		// ブログ1件分取得成功のテスト
+		testExecuteFindByIdNG();		// ブログ1件分取得失敗のテスト
 //		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
 //		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
 //		testExecuteGetTotal();			// ブログ総件数取得のテスト
 //		testExecuteDeleteOK();				// ブログ削除成功のテスト
 //		testExecuteDeleteNG();				// ブログ削除失敗のテスト
-		testExecuteUpdateOK();			// ブログ編集成功のテスト
-		testExecuteUpdateNG();			// ブログ編集失敗のテスト
+//		testExecuteUpdateOK();			// ブログ編集成功のテスト
+//		testExecuteUpdateNG();			// ブログ編集失敗のテスト
 	}
 	public static void testExecuteAddOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -58,6 +60,28 @@ public class BlogLogicTest {
 			System.out.println("testExecuteFind: 成功しました");
 		} else {
 			System.out.println("testExecuteFind: 失敗しました");
+		}
+	}
+	
+	public static void testExecuteFindByIdOK() {
+		int id = 10;	// 存在するID
+		BlogLogic bo = new BlogLogic();
+		Blog blog = bo.executeFindById(id);
+		if(blog != null) {
+			System.out.println("testExecuteFindByIdOK: 成功しました");
+		} else {
+			System.out.println("testExecuteFindByIdOK: 失敗しました");
+		}
+	}
+	
+	public static void testExecuteFindByIdNG() {
+		int id = 1000;	// 存在しないID
+		BlogLogic bo = new BlogLogic();
+		Blog blog = bo.executeFindById(id);
+		if(blog == null) {
+			System.out.println("testExecuteFindByIdNG: 成功しました");
+		} else { 
+			System.out.println("testExecuteFindByIdNG: 失敗しました");
 		}
 	}
 	

@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.Blog" %>
+<%
+Blog blog = (Blog)session.getAttribute("currentBlog");
+String text = blog.getText();
+String[] escape = {"<br />", "<br/>", "<br>"};
+for (int i=0; i<escape.length; i++) {	
+	text = text.replaceAll(escape[i], "\n");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,11 +34,11 @@
 		<div class="p_span_wrap">
 			<span class="p_span">タイトル(100文字以内)：</span><p><span id="char_title">0</span>/100</p>
 		</div>
-		<input id="p_title" class="p_title input" type="text" name="title" required maxlength="100" value="${param.title}"><br>
+		<input id="p_title" class="p_title input" type="text" name="title" required maxlength="100" value="${currentBlog.title}"><br>
 		<div class="p_span_wrap">
 			<span class="p_span">内容(400文字以内)：</span><p><span id="char_text">0</span>/400</p>
 		</div>
-		<textarea id="p_text" class="p_text input" name="text" required maxlength="400"><c:out value="${param.text}"></c:out></textarea><br>
+		<textarea id="p_text" class="p_text input" name="text" required maxlength="400"><%=text %></textarea><br>
 		<div class="p_img">
 			<span class="p_span">画像(任意)：</span>
 
@@ -43,13 +52,13 @@
 				<input type="checkbox" name="changeImg" value="true" />
 				画像を変更する
 			</label>
-			<input type="hidden" name="currentImg" value="${param.img}" />
+			<input type="hidden" name="currentImg" value="${currentBlog.img}" />
 			
 			<div class="preview">
 				<div class="current_prev">
 					現在の画像：
-					<c:if test="${not empty param.img}">
-					<img src="/blog/upload/${param.img}"  />
+					<c:if test="${not empty currentBlog.img}">
+					<img src="/blog/upload/${currentBlog.img}"  />
 					</c:if>
 				</div>
 				<div class="new_prev">

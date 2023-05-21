@@ -13,6 +13,8 @@ public class BlogDAOTest {
 //		testAddBlogOK();		// ブログを追加できた場合のテスト
 //		testAddBlogNG();		// ブログを追加できなかった場合のテスト
 //		testFindAll();			// ブログを取得できたかのテスト
+		testFindByIdOK();			// ブログ1件分の取得成功のテスト
+		testFindByIdNG();			// ブログ1件分の取得失敗のテスト
 //		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
 //		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
 //		testGetTotal();			// ブログの総数を取得する
@@ -58,6 +60,27 @@ public class BlogDAOTest {
 			System.out.println("testFindAll: 成功しました");
 		} else {
 			System.out.println("testFindAll: 失敗しました");
+		}
+	}
+	
+	public static void testFindByIdOK() {
+		// 存在するブログのIDをデータベースで調べておく。
+		BlogDAO dao = new BlogDAO();
+		Blog result = dao.findById(10);
+		if(result != null) {
+			System.out.println("testFindByIdOK: 成功しました");
+		} else {
+			System.out.println("testFindByIdOK: 失敗しました");
+		}
+	}
+	
+	public static void testFindByIdNG() {
+		BlogDAO dao = new BlogDAO();
+		Blog result = dao.findById(1000);		// 現状存在しないID
+		if(result == null) {
+			System.out.println("testFindByIdNG: 成功しました");
+		} else {
+			System.out.println("testFindByIdNG: 失敗しました");
 		}
 	}
 	

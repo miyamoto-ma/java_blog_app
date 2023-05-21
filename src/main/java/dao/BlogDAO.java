@@ -74,8 +74,36 @@ public class BlogDAO {
 		return blogs;
 	}
 	
+	// ブログ取得処理（1件分のみ）
+	// id: ブログのid
+	public Blog findById(int id) {
+		Blog blog = new Blog();
+		blog = null;
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "SELECT TITLE, TEXT, IMG FROM BLOGS WHERE ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if(rs.next()) {
+				System.out.println(rs);
+				String title = rs.getString("TITLE");
+				String text = rs.getString("TEXT");
+				String img = rs.getString("IMG");
+				blog = new Blog(id, title, text, img);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return blog;
+		}
+		return blog;
+	}
+	
 	
 	// ブログ取得処理（ページネーション実装）
+	// currentPage: 現在のページ、 itemsPerPage: 1ページ分の表示件数
 	public  List<Blog> findByPage(long currentPage, int itemsPerPage) {
 		List<Blog> blogs = new ArrayList<> ();	// 戻り値となるブログリストを格納する
 		long offsetRows = (currentPage - 1) * itemsPerPage;	// 除外する行数（先頭から）

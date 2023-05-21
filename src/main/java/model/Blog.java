@@ -1,6 +1,8 @@
 package model;
 
-public class Blog {
+import java.io.Serializable;
+
+public class Blog implements Serializable {
 	private int id;
 	private int userId;
 	private String name;
@@ -9,6 +11,7 @@ public class Blog {
 	private String img;
 	private String datetime;
 	
+	public Blog() {}
 	
 	public Blog(int id, String title, String text, String img) {
 		this.id = id;
