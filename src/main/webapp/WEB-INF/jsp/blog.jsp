@@ -44,6 +44,7 @@
 		<c:if test="${not empty blog.img}">
 			<img class="c_img" src="/blog/upload/${blog.img}" />
 		</c:if>
+		<div id="good_${blog.id}" class="good">いいね</div><div id="good_result_${blog.id}" class="good_result"></div>
 		<div class="c_text">${blog.text}</div>
 			<p class="c_author_wrap">
 			<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
@@ -93,5 +94,37 @@
 </div>
 </c:if>
 
+<script>
+	let goods = document.getElementsByClassName("good");
+	let good_results = document.getElementsByClassName("good_result");
+	for(let i=0; i<goods.length; i++) {
+		goods[i].addEventListener("click", function() {
+			let responseClone;
+			fetch('EvaluationServlet', {
+					method: "POST",
+					body: JSON.stringify({
+							str1: "test1OK",
+							str2: "test2OK"
+						})
+					})
+				.then(data => data.json())
+				.then(res => {
+					console.log(res.ret);
+					console.log(res.str);
+					console.log(res.ary);
+					console.log(res.ary[0]);
+					console.log(res.ary[1]);
+					console.log(res.map);
+					console.log(res.map.A);
+					console.log(res.map.B);
+					
+				})
+								
+				;
+				
+
+		});
+	}
+</script>
 </body>
 </html>
