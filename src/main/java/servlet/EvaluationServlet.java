@@ -31,8 +31,9 @@ public class EvaluationServlet extends HttpServlet {
 		// JSONをオブジェクトに変換
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> reqMap = mapper.readValue(jsonText, new TypeReference<Map<String, String>>(){});
-		System.out.println(reqMap.get("str1"));
-		System.out.println(reqMap.get("str2"));
+		System.out.println(reqMap.get("good"));
+		System.out.println(reqMap.get("userId"));
+		System.out.println(reqMap.get("blogId"));
 		// 戻り値用のオブジェクト作成
 		Map<String, String> map = new HashMap<>();
 		map.put("A", "あいう");

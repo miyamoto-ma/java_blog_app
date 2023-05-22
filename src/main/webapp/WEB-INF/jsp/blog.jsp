@@ -44,7 +44,7 @@
 		<c:if test="${not empty blog.img}">
 			<img class="c_img" src="/blog/upload/${blog.img}" />
 		</c:if>
-		<div id="good_${blog.id}" class="good">いいね</div><div id="good_result_${blog.id}" class="good_result"></div>
+		<div id="good_${blog.id}" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" class="good">いいね！</div><div id="good_result_${blog.id}" class="good_result">0</div>
 		<div class="c_text">${blog.text}</div>
 			<p class="c_author_wrap">
 			<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
@@ -98,13 +98,14 @@
 	let goods = document.getElementsByClassName("good");
 	let good_results = document.getElementsByClassName("good_result");
 	for(let i=0; i<goods.length; i++) {
-		goods[i].addEventListener("click", function() {
-			let responseClone;
+		goods[i].addEventListener("click", function(e) {
+			if(e.target.dataset.userId != "" && e.target.dataset.userId >= 1){
 			fetch('EvaluationServlet', {
 					method: "POST",
 					body: JSON.stringify({
-							str1: "test1OK",
-							str2: "test2OK"
+							good: "good",
+							userId: e.target.dataset.userId,
+							blogId: e.target.dataset.blogId
 						})
 					})
 				.then(data => data.json())
@@ -119,8 +120,12 @@
 					console.log(res.map.B);
 					
 				})
-								
-				;
+				.catch(err => {
+					alert("通信に失敗しました。");
+				});
+				} else {
+					alert("ログインしてください。");
+				}
 				
 
 		});
