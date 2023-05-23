@@ -44,7 +44,10 @@ li {
 	font-size: 40px;
 }
 .header h1 a { 
-	transition: .3s opacity;
+	-o-transition: .3s all;
+	-moz-transition: .3s all;
+	-webkit-transition: .3s all;
+	transition: .3s all;
 }
 .header h1 a:hover {
 	opacity: .7;
@@ -71,6 +74,58 @@ li {
     max-width: 880px;
     margin: 20px auto;
 }
+
+.content .c_img {
+	width: 30%;	
+	margin-bottom: 15px;
+}
+
+.content .c_title > p {
+	font-size: 25px;
+}
+
+.content .c_text {
+	padding: 10px;
+}
+
+
+.content .good_author_wrap {
+	display: flex;
+	justify-content: space-between;
+}
+.content .good_author_wrap div:first-child {
+	display: flex;
+}
+.content .heart {
+	width: 1em !important;
+	height : 1em !important;
+	margin-right: 5px;
+	vertical-align: top;
+}
+.content .good,
+.content .good .hert path {
+	-o-transition: .3s all;
+	-moz-transition: .3s all;
+	-webkit-transition: .3s all;
+	transition: .3s all;
+}
+.content .good:hover {
+	cursor: pointer;
+	opacity: .7;
+}
+.content .good:active {
+	opacity: 1;
+}
+.content .good.active .heart path {
+	fill: rgb(255, 142, 174) !important;
+}
+.content .good.active {
+	color: rgb(255, 142, 174);
+}
+.content .good_result {
+	margin-left: .5em;
+}
+
 .content .c_author_wrap {
 	display: flex;
 	justify-content: flex-end;
@@ -86,18 +141,7 @@ li {
 .content .c_author_wrap > a:hover {
 	opacity: .7;
 }
-.content .c_img {
-	width: 30%;	
-	margin-bottom: 15px;
-}
 
-.content .c_title > p {
-	font-size: 25px;
-}
-
-.content .c_text {
-	padding: 10px;
-}
 
 /*ページネーション*/
 .paginate {
@@ -112,7 +156,10 @@ li {
 }
 .paginate a {
 	color: mediumblue;
-	transition: .3s opacity;
+	-o-transition: .3s all;
+	-moz-transition: .3s all;
+	-webkit-transition: .3s all;
+	transition: .3s all;
 }
 .paginate a:hover {
 	opacity: .8;

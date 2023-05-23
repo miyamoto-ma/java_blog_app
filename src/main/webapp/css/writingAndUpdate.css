@@ -68,7 +68,10 @@
   padding: 1em;
   background-color: #ccc;
   box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
-  transition: 300ms ease-in-out;
+  	-o-transition: .3s ease-in-out;
+	-moz-transition: .3s ease-in-out;
+	-webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .input:focus {
@@ -122,6 +125,9 @@ label.button_f > input {
  position: relative;
  overflow: hidden;
  border: 2px solid var(--color);
+ 	-o-transition: color .5s;
+	-moz-transition: color .5s;
+	-webkit-transition: color .5s;
  transition: color .5s;
  z-index: 1;
  font-size: 17px;
@@ -147,6 +153,9 @@ label.button_f > input {
 .button_f:before {
  top: 100%;
  left: 100%;
+	-o-transition: .7s all;
+	-moz-transition: .7s all;
+	-webkit-transition: .7s all;
  transition: all .7s;
 }
 
@@ -157,6 +166,9 @@ label.button_f > input {
 
 .button_f:active:before {
  background: #3a0ca3;
+	-o-transition: background 0s;
+	-moz-transition: background 0s;
+	-webkit-transition: background 0s;
  transition: background 0s;
 }
 
@@ -204,6 +216,9 @@ label.button_f > input {
  top: 0;
  left: 0;
  background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+ 	-o-transition: .5s ease;
+	-moz-transition: .5s ease;
+	-webkit-transition: .5s ease;
  transition: .5s ease;
  display: block;
  z-index: -1;

@@ -60,7 +60,22 @@ public class GoodDAO {
 
 	
 	// 「いいね」の総数取得
-	public int goodLen() {
-		
+	public int goodCount(int blogId) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		int result = 0;
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			String sql = "SELECT COUNT(*) AS count FROM GOODS WHERE BLOG_ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, blogId);
+			ResultSet rs = pStmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return result;
+		}
+		return result;
 	}
 }

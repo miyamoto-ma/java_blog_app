@@ -44,16 +44,40 @@
 		<c:if test="${not empty blog.img}">
 			<img class="c_img" src="/blog/upload/${blog.img}" />
 		</c:if>
-		<div id="good_${blog.id}" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" class="good">いいね！</div><div id="good_result_${blog.id}" class="good_result">0</div>
+		
 		<div class="c_text">${blog.text}</div>
+		
+		<div class="good_author_wrap">
+			<div>
+				<div id="good_${blog.id}" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" class="good">
+					<!--?xml version="1.0" encoding="utf-8"?-->
+					<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+					
+					<svg version="1.1" id="_x32_" class="heart" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 256px; height: 256px; opacity: 1;" xml:space="preserve">
+					<style type="text/css">
+						.st0{fill:#ff8eae;}
+					</style>
+					<g>
+						<path id="heart_path" class="st0" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" d="M380.63,32.196C302.639,33.698,264.47,88.893,256,139.075c-8.47-50.182-46.638-105.378-124.63-106.879
+							C59.462,30.814,0,86.128,0,187.076c0,129.588,146.582,189.45,246.817,286.25c3.489,3.371,2.668,3.284,2.668,3.284
+							c1.647,2.031,4.014,3.208,6.504,3.208v0.011c0,0,0.006,0,0.011,0c0,0,0.006,0,0.011,0v-0.011c2.489,0,4.856-1.177,6.503-3.208
+							c0,0-0.821,0.086,2.669-3.284C365.418,376.526,512,316.664,512,187.076C512,86.128,452.538,30.814,380.63,32.196z" style="fill: rgb(75, 75, 75);"></path>
+					</g>
+					</svg>		
+					いいね！
+				</div>
+				<p id="good_result_${blog.id}" class="good_result">0</p>
+			</div>
+		
 			<p class="c_author_wrap">
-			<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
-			<span class="c_datetime"><c:out value="[ ${blog.datetime} ]" /></span>
-			<c:if test="${blog.userId == loginUser.id}">
-				<a id="update" href="UpdateServlet?id=${blog.id}&page=${paginate.currentPage}">編集</a>
-				<a id="delete" href="DeleteServlet?id=${blog.id}&page=${paginate.currentPage}" onclick="return confirm('削除しますか？')">削除</a>
-			</c:if>
-		</p>
+				<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
+				<span class="c_datetime"><c:out value="[ ${blog.datetime} ]" /></span>
+				<c:if test="${blog.userId == loginUser.id}">
+					<a id="update" href="UpdateServlet?id=${blog.id}&page=${paginate.currentPage}">編集</a>
+					<a id="delete" href="DeleteServlet?id=${blog.id}&page=${paginate.currentPage}" onclick="return confirm('削除しますか？')">削除</a>
+				</c:if>
+			</p>
+		</div>	
 	</div>
 	
 	</li>
@@ -103,29 +127,28 @@
 			fetch('EvaluationServlet', {
 					method: "POST",
 					body: JSON.stringify({
-							good: "good",
-							userId: e.target.dataset.userId,
 							blogId: e.target.dataset.blogId
 						})
 					})
 				.then(data => data.json())
 				.then(res => {
-					console.log(res.ret);
-					console.log(res.str);
-					console.log(res.ary);
-					console.log(res.ary[0]);
-					console.log(res.ary[1]);
-					console.log(res.map);
-					console.log(res.map.A);
-					console.log(res.map.B);
+					good_results[i].textContent = res.count;
+					let str = res.result;
+					if(str == "addOK") {
+						goods[i].classList.add("active");
+					} else if(str == "deleteOK") {
+						goods[i].classList.remove("active");
+					} else {
+						alert(str);
+					}
 					
 				})
 				.catch(err => {
 					alert("通信に失敗しました。");
 				});
-				} else {
-					alert("ログインしてください。");
-				}
+			} else {
+				alert("ログインしてください。");
+			}
 				
 
 		});
