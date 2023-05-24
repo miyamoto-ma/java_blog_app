@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html>
+<html id="html" class="">
 <head>
 <meta charset="UTF-8">
 <title>MyBlogPage</title>
@@ -49,7 +49,13 @@
 
 	<div class="blog_wrap">
 		<c:if test="${not empty blog.img}">
-			<img class="c_img" src="/blog/upload/${blog.img}" />
+			<div class="modal">
+				<div class="modal_img_wrap">
+					<span class="modal_close"><span></span><span></span></span>
+					<img class="c_img" src="/blog/upload/${blog.img}" />
+				</div>
+				<div class="modal_back"></div>
+			</div>
 		</c:if>
 		
 		<div class="c_text">${blog.text}</div>
@@ -131,42 +137,7 @@
 </ul>
 </div>
 </c:if>
+<script src="/blog/js/blog.js"></script>
 
-<script>
-	let goods = document.getElementsByClassName("good");
-	let good_results = document.getElementsByClassName("good_result");
-	for(let i=0; i<goods.length; i++) {
-		goods[i].addEventListener("click", function(e) {
-			if(e.target.dataset.userId != "" && e.target.dataset.userId >= 1){
-			fetch('EvaluationServlet', {
-					method: "POST",
-					body: JSON.stringify({
-							blogId: e.target.dataset.blogId
-						})
-					})
-				.then(data => data.json())
-				.then(res => {
-					good_results[i].textContent = res.count;
-					let str = res.result;
-					if(str == "addOK") {
-						goods[i].classList.add("active");
-					} else if(str == "deleteOK") {
-						goods[i].classList.remove("active");
-					} else {
-						alert(str);
-					}
-					
-				})
-				.catch(err => {
-					alert("通信に失敗しました。");
-				});
-			} else {
-				alert("ログインしてください。");
-			}
-				
-
-		});
-	}
-</script>
 </body>
 </html>
