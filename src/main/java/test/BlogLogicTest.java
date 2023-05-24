@@ -12,10 +12,10 @@ public class BlogLogicTest {
 //		testExecuteAddOK();		// ブログ追加成功のテスト
 //		testExecuteAddNG();		// ブログ追加失敗のテスト
 //		testExecuteFindAll();			// ブログ一覧取得のテスト
-		testExecuteFindByIdOK();		// ブログ1件分取得成功のテスト
-		testExecuteFindByIdNG();		// ブログ1件分取得失敗のテスト
-//		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
-//		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
+//		testExecuteFindByIdOK();		// ブログ1件分取得成功のテスト
+//		testExecuteFindByIdNG();		// ブログ1件分取得失敗のテスト
+		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
+		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
 //		testExecuteGetTotal();			// ブログ総件数取得のテスト
 //		testExecuteDeleteOK();				// ブログ削除成功のテスト
 //		testExecuteDeleteNG();				// ブログ削除失敗のテスト
@@ -86,33 +86,34 @@ public class BlogLogicTest {
 	}
 	
 	public static void testExecuteFindByPageOK() {
-		long currentPage = 3;
+		int loginUserId = 1;
+		long currentPage = 1;
 		int itemsPerPage = 10;
 		BlogLogic bo = new BlogLogic();
-		List<Blog> BlogList = bo.executeFindByPage(currentPage, itemsPerPage);
+		List<Blog> BlogList = bo.executeFindByPage(loginUserId, currentPage, itemsPerPage);
 		if(BlogList.size() > 0) {
 			System.out.println("testExecuteFindByPageOK: 成功しました");
 		} else {
 			System.out.println("testExecuteFindByPageOK: 失敗しました");
 		}
+		System.out.println(BlogList);
 	}
 	
 	public static void testExecuteFindByPageNG() {
 		// 現在ブログ総件数は43の状態
+		int loginUserId = 10;
 		long currentPage = 10;
 		int itemsPerPage = 10;
 		BlogLogic bo = new BlogLogic();
-		List<Blog> BlogList = bo.executeFindByPage(currentPage, itemsPerPage);
-		
-		for(Blog blog : BlogList) {
-			System.out.println(blog);
-		}
+		List<Blog> BlogList = bo.executeFindByPage(loginUserId, currentPage, itemsPerPage);
 		if(BlogList.size() == 0) {
 			System.out.println("testExecuteFindByPageNG: 成功しました");
 		} else {
 			System.out.println("testExecuteFindByPageNG: 失敗しました");
 		}
+		System.out.println(BlogList);
 	}
+	
 	
 	public static void testExecuteGetTotal() {
 		BlogLogic bo = new BlogLogic();

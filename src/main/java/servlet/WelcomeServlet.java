@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Function.Htmlspecialchars;
+import model.Account;
 import model.Blog;
 import model.BlogLogic;
 import model.Paginate;
@@ -59,10 +60,15 @@ public class WelcomeServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("paginate", paginate);	
 		// ブログ一覧を取得
-		List<Blog> blogList = bo.executeFindByPage(currentPage, itemsPerPage);
+		Account loginUser = (Account)session.getAttribute("loginUser");
+		int loginUserId = 0;
+		if(loginUser != null) {
+			loginUserId = loginUser.getId();
+		}
+		List<Blog> blogList = bo.executeFindByPage(loginUserId, currentPage, itemsPerPage);
 		ServletContext application = this.getServletContext();
 		application.setAttribute("blogList", blogList);
-		
+
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/blog.jsp?page=" + currentPage);
 		dispatcher.forward(request, response);

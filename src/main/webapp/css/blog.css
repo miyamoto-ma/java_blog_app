@@ -27,7 +27,14 @@ li {
 	margin-left: 1em;
 	transition: .3s opacity;
 }
-.header ul li:hover {
+.header ul li a {
+	-o-transition: .3s opacity;
+	-moz-transition: .3s opacity;
+	-webkit-transition: .3s opacity;
+	transition: .3s opacity;
+}
+	
+.header ul li:hover a {
 	opacity: .7;
 }
 

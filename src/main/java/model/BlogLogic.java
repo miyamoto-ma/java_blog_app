@@ -28,12 +28,13 @@ public class BlogLogic {
 	}
 	
 	// ブログ内容を1ページ分取得
-	public List<Blog> executeFindByPage(long currentPage, int itemsPerPage) {
+	public List<Blog> executeFindByPage(int loginUserId, long currentPage, int itemsPerPage) {
 		BlogDAO dao = new BlogDAO();
 		List<Blog> blogList = new ArrayList<>();
-		blogList = dao.findByPage(currentPage, itemsPerPage);
+		blogList = dao.findByPage(loginUserId, currentPage, itemsPerPage);
 		return blogList;
 	}
+
 	
 	// ブログの総件数を取得
 	public long executeGetTotal() {

@@ -15,7 +15,14 @@
 <div class="h_wrap">
 <h1><a href="WelcomeServlet">MyBlogPage</a></h1>
 <ul>
-<li><a href="LoginServlet">ログイン</a></li>
+<c:choose>
+<c:when test="${loginUser == null}" >
+	<li><a href="LoginServlet">ログイン</a></li>
+</c:when>
+<c:otherwise>
+	<li><c:out value="${loginUser.name}" />さんログイン中</li>
+</c:otherwise>
+</c:choose>
 <c:if test="${loginUser != null}">
 	<li><a href="PostingServlet">投稿</a></li>
 	<li><a href="LogoutServlet">ログアウト</a></li>
@@ -49,7 +56,12 @@
 		
 		<div class="good_author_wrap">
 			<div>
-				<div id="good_${blog.id}" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" class="good">
+				<c:set var="active" value="" />
+				<c:if test="${blog.GId != 0 && loginUser != null}" >
+					<c:set var="active" value="active" />
+				</c:if>
+				<div id="good_${blog.id}" data-blog-id="${blog.id}" data-user-id="${loginUser.id}" class="good ${active}">
+
 					<!--?xml version="1.0" encoding="utf-8"?-->
 					<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 					
@@ -66,11 +78,13 @@
 					</svg>		
 					いいね！
 				</div>
-				<p id="good_result_${blog.id}" class="good_result">0</p>
+				<p id="good_result_${blog.id}" class="good_result">
+					<c:out value="${blog.GCount}" />
+				</p>
 			</div>
 		
 			<p class="c_author_wrap">
-				<span class="c_author"> 投稿者：<c:out value="${blog.name }" /></span>
+				<span class="c_author"> 投稿者：<c:out value="${blog.name}" /></span>
 				<span class="c_datetime"><c:out value="[ ${blog.datetime} ]" /></span>
 				<c:if test="${blog.userId == loginUser.id}">
 					<a id="update" href="UpdateServlet?id=${blog.id}&page=${paginate.currentPage}">編集</a>

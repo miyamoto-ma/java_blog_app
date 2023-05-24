@@ -100,22 +100,29 @@ public class BlogDAO {
 		}
 		return blog;
 	}
-	
-	
+
 	// ブログ取得処理（ページネーション実装）
 	// currentPage: 現在のページ、 itemsPerPage: 1ページ分の表示件数
-	public  List<Blog> findByPage(long currentPage, int itemsPerPage) {
+	public  List<Blog> findByPage(int loginUserId, long currentPage, int itemsPerPage) {
 		List<Blog> blogs = new ArrayList<> ();	// 戻り値となるブログリストを格納する
 		long offsetRows = (currentPage - 1) * itemsPerPage;	// 除外する行数（先頭から）
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "SELECT BLOGS.ID As ID, NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+			String sql = "SELECT BLOGS.ID AS ID, BLOGS.USER_ID AS USER_ID, NAME, TITLE, TEXT, IMG, DATETIME, COUNT(GOODS_1.BLOG_ID) AS G_COUNT, GOODS_2.ID AS G_ID"
+					+ " FROM BLOGS"
+					+ " JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID"
+					+ " LEFT JOIN GOODS AS GOODS_1 ON BLOGS.ID = GOODS_1.BLOG_ID"
+					+ " LEFT JOIN GOODS AS GOODS_2 ON BLOGS.ID = GOODS_2.BLOG_ID AND GOODS_2.USER_ID = ?"
+					+ " GROUP BY BLOGS.ID"
+					+ " ORDER BY DATETIME DESC"
+					+ " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setLong(1,offsetRows);
-			pStmt.setInt(2,itemsPerPage);
-			ResultSet rs = pStmt.executeQuery();
+			pStmt.setInt(1, loginUserId);
+			pStmt.setLong(2,offsetRows);
+			pStmt.setInt(3,itemsPerPage);
+			ResultSet rs = pStmt.executeQuery();	
 			while(rs.next()) {
 				int id = rs.getInt("ID");
 				int userId = rs.getInt("USER_ID");
@@ -124,7 +131,9 @@ public class BlogDAO {
 				String text = rs.getString("TEXT");
 				String img = rs.getString("IMG");
 				String datetime = rs.getString("DATETIME");
-				Blog blog = new Blog(id, userId, name, title, text, img, datetime);
+				int gCount = rs.getInt("G_COUNT");
+				int gId = rs.getInt("G_ID");
+				Blog blog = new Blog(id, userId, name, title, text, img, datetime, gCount, gId);
 				blogs.add(blog);
 			}
 		} catch (SQLException e) {
@@ -133,6 +142,7 @@ public class BlogDAO {
 		}
 		return blogs;
 	}
+
 	
 	
 	// ブログの総数を取得

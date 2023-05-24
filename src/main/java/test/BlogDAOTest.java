@@ -13,10 +13,10 @@ public class BlogDAOTest {
 //		testAddBlogOK();		// ブログを追加できた場合のテスト
 //		testAddBlogNG();		// ブログを追加できなかった場合のテスト
 //		testFindAll();			// ブログを取得できたかのテスト
-		testFindByIdOK();			// ブログ1件分の取得成功のテスト
-		testFindByIdNG();			// ブログ1件分の取得失敗のテスト
-//		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
-//		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
+//		testFindByIdOK();			// ブログ1件分の取得成功のテスト
+//		testFindByIdNG();			// ブログ1件分の取得失敗のテスト
+		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
+		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
 //		testGetTotal();			// ブログの総数を取得する
 //		testDeleteBlogOK();			// ブログを削除できた場合のテスト
 //		testDeleteBlogNG();			// ブログを削除できなかった場合のテスト
@@ -84,32 +84,39 @@ public class BlogDAOTest {
 		}
 	}
 	
+
+	
 	public static void testFindByPageOK() {
-		long currentPage = 3;
+		int loginUserId = 1;
+		long currentPage = 1;
 		int itemsPerPage = 10;
 		BlogDAO dao = new BlogDAO();
-		List<Blog> result = dao.findByPage(currentPage, itemsPerPage);
+		List<Blog> result = dao.findByPage(loginUserId, currentPage, itemsPerPage);
 		if(result.size() > 0) {
 			System.out.println("testFindByPageOK: 成功しました");
 		} else {
 			System.out.println("testFindByPageOK: 失敗しました");
 		}
+		for(Blog blog : result) {
+			System.out.println(blog.getGId());
+		}
 	}
 	
 	public static void testFindByPageNG() {
 		// 現在データが43行の状態。
+		int loginUserId = 10;
 		long currentPage = 10;
 		int itemsPerPage = 10;
 		BlogDAO dao = new BlogDAO();
-		List<Blog> result = dao.findByPage(currentPage, itemsPerPage);
+		List<Blog> result = dao.findByPage(loginUserId, currentPage, itemsPerPage);
 		if(result.size() == 0) {
 			System.out.println("testFindByPageNG: 成功しました");
 		} else {
 			System.out.println("testFindByPageNG: 失敗しました");
 		}
-		
+		System.out.println(result);
 	}
-	
+
 	public static void testGetTotal() {
 		BlogDAO dao = new BlogDAO();
 		long result = dao.getTotal();
