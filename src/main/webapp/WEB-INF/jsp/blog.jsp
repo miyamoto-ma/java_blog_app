@@ -27,6 +27,7 @@
 <c:if test="${loginUser != null}">
 	<li><a href="PostingServlet">投稿</a></li>
 	<li><a href="LogoutServlet">ログアウト</a></li>
+	<li><a id="signout" href="javascript:void(0)">サインアウト</a></li>
 </c:if>
 </ul>
 </div>

@@ -88,6 +88,15 @@ window.addEventListener("scroll",func, {passive: true});
 
 
 
+// サインアウトの確認
+const signout = document.getElementById("signout");
+signout.addEventListener("click",function() {
+	let result = confirm("本当にアカウントを削除してよろしいですか？");
+	if(result) {
+		location.href = "SignoutServlet";
+	}
+	return false;
+});
 
 
 
