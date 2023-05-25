@@ -24,6 +24,7 @@
 </c:otherwise>
 </c:choose>
 <c:if test="${loginUser != null}">
+	<li><a href="SigninServlet">サインイン</a>
 	<li><a href="PostingServlet">投稿</a></li>
 	<li><a href="LogoutServlet">ログアウト</a></li>
 </c:if>
@@ -137,6 +138,11 @@
 </ul>
 </div>
 </c:if>
+
+<img id="top_btn" class="top_btn transparent" src="/blog/img/top.png" />
+
+
+
 <script src="/blog/js/blog.js"></script>
 
 </body>

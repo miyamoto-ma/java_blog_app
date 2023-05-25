@@ -9,16 +9,17 @@ import java.sql.SQLException;
 import model.Good;
 
 public class GoodDAO {
-	private final String JDBC_URL = "jdbc:h2:tcp://localhost/~/blog";
-	private final String DB_USER = "manabu";
-	private final String DB_PASS = "Mpa0515";
+	Db_conf dbConf = new Db_conf();
+	String jdbcUrl = dbConf.getJDBC_URL();
+	String dbUser = dbConf.getDB_USER();
+	String dbPass = dbConf.getDB_PASS();
 	
 	// 「いいね」の追加/削除処理
 	public String toggleGood(Good good) {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		String result;
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			// まず、データの存在確認
 			String sql_select = "SELECT ID FROM GOODS WHERE BLOG_ID = ? AND USER_ID = ?";
 			PreparedStatement pStmt_select = conn.prepareStatement(sql_select);
@@ -64,7 +65,7 @@ public class GoodDAO {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		int result = 0;
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			String sql = "SELECT COUNT(*) AS count FROM GOODS WHERE BLOG_ID = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, blogId);

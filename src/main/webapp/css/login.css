@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 .l_main {
+	width: 550px;
 	padding: 50px;
 	position:fixed;
 	top: 50%;
@@ -17,6 +18,10 @@
 .l_title {
 	text-align: center;
 	font-size: 25px;
+}
+.err_msg {
+	margin-top: 20px;
+	color: darkred;
 }
 
 .l_form {	

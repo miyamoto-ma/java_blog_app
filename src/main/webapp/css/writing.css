@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.p_main {
+	width: 600px;
+}
+
 .preview {
 	justify-content: flex-start;
 }

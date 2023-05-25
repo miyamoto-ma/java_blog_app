@@ -293,3 +293,45 @@ li {
 .paginate a:hover {
 	opacity: .8;
 }
+
+
+.top_btn {
+	width: 5vw;
+	max-width: 60px;
+	min-width: 45px;
+	position: fixed;
+	bottom: 20px;
+	right: 15px;
+	-o-transition: .3s all;
+	-moz-transition: .3s all;
+	-webkit-transition: .3s all;
+	transition: .1s all;
+	cursor: pointer;
+	opacity: .7;
+}
+.top_btn:hover {
+	opacity: 1;
+    filter: drop-shadow(2px 7px 3px gray);
+    -o-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+.top_btn:active {
+	opacity: .7;
+	filter: drop-shadow(1px 2px 3px gray);
+	    -o-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px);
+}
+.transparent {
+	opacity: 0;
+}
+
+
+
+
+
+
+

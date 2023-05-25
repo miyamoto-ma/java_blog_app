@@ -9,9 +9,10 @@ import java.sql.SQLException;
 import model.Account;
 
 public class AccountDAO {
-	private final String JDBC_URL = "jdbc:h2:tcp://localhost/~/blog";
-	private final String DB_USER = "manabu";
-	private final String DB_PASS = "Mpa0515";
+	Db_conf dbConf = new Db_conf();
+	String jdbcUrl = dbConf.getJDBC_URL();
+	String dbUser = dbConf.getDB_USER();
+	String dbPass = dbConf.getDB_PASS();
 	
 	public Account findByAccount(Account account) {
 		Account r_account = null;
@@ -19,7 +20,7 @@ public class AccountDAO {
 		jdbc.read();
 		
 		// データベースへの接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			// SELECT文を準備
 			String sql = "SELECT ID, NAME, PASS FROM ACCOUNTS WHERE NAME = ? AND PASS = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -38,5 +39,25 @@ public class AccountDAO {
 			return null;
 		}
 		return r_account;
+	}
+	
+	public boolean addUser(Account account) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			String sql = "INSERT INTO ACCOUNTS (NAME, PASS) VALUES (?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, account.getName());
+			pStmt.setString(2, account.getPass());
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

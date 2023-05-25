@@ -12,6 +12,9 @@
 <body>
 <main class="l_main">
 <h1 class="l_title">ログインフォーム</h1>
+<c:if test="${param.ErrLogin == true}">
+	<p class="err_msg"><c:out value="※ログインに失敗しました" /></p>
+</c:if>
 <form class="l_form" action="LoginServlet" method="post">
 ユーザー名：<input class="l_name input" type="text" name="name" required maxlength="20" value="${loginUser.name}"><br>
 パスワード：<input class="l_pass input" type="password" name="pass" required maxlength="20"><br>

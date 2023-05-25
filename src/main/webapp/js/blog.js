@@ -64,7 +64,26 @@ for(let i=0; i<modals.length; i++) {
 
 
 
+// トップに戻るボタン（トップに戻る機能）
+const top_btn = document.getElementById("top_btn");
+top_btn.addEventListener("click", function() {
+	window.scroll({top: 0, behavior: 'smooth'});
+});
 
+// トップに戻るボタン（下に移動したら出現する）
+const window_h = window.innerHeight;
+let timer = null;
+function func() {
+	clearTimeout(timer);
+	timer = setTimeout(function() {
+		if(window.pageYOffset > window_h) {
+			top_btn.classList.remove("transparent");
+		} else {
+			top_btn.classList.add("transparent");
+		}
+	}, 16);
+}
+window.addEventListener("scroll",func, {passive: true});
 
 
 

@@ -11,16 +11,17 @@ import java.util.List;
 import model.Blog;
 
 public class BlogDAO {
-	private final String JDBC_URL = "jdbc:h2:tcp://localhost/~/blog";
-	private final String DB_USER = "manabu";
-	private final String DB_PASS = "Mpa0515";
+	Db_conf dbConf = new Db_conf();
+	String jdbcUrl = dbConf.getJDBC_URL();
+	String dbUser = dbConf.getDB_USER();
+	String dbPass = dbConf.getDB_PASS();
 	
 	// ブログ追加処理
 	public boolean addBlog(Blog blog) {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		// データベースへの接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			// INSERT文の準備
 			String sql = "INSERT INTO BLOGS (USER_ID, TITLE, TEXT, IMG, DATETIME) VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -50,7 +51,7 @@ public class BlogDAO {
 		jdbc.read();
 		
 		// データベースへの接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			// SELECT文を準備
 			String sql = "SELECT BLOGS.ID As ID, NAME, USER_ID, TITLE, TEXT, IMG, DATETIME FROM BLOGS JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID ORDER BY DATETIME DESC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -82,7 +83,7 @@ public class BlogDAO {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			String sql = "SELECT TITLE, TEXT, IMG FROM BLOGS WHERE ID = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, id);
@@ -109,7 +110,7 @@ public class BlogDAO {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			String sql = "SELECT BLOGS.ID AS ID, BLOGS.USER_ID AS USER_ID, NAME, TITLE, TEXT, IMG, DATETIME, COUNT(GOODS_1.BLOG_ID) AS G_COUNT, GOODS_2.ID AS G_ID"
 					+ " FROM BLOGS"
 					+ " JOIN ACCOUNTS ON BLOGS.USER_ID = ACCOUNTS.ID"
@@ -151,7 +152,7 @@ public class BlogDAO {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			String sql = "SELECT COUNT(*) As count FROM BLOGS";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			ResultSet rs = pStmt.executeQuery();
@@ -171,7 +172,7 @@ public class BlogDAO {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		// データベースへの接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			// INSERT文の準備
 			String sql = "DELETE FROM BLOGS WHERE ID = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -193,7 +194,7 @@ public class BlogDAO {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		// データベースへの接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
 			// UPDATE文の準備
 			String sql = "UPDATE BLOGS SET TITLE = ?, TEXT = ?, IMG = ? WHERE ID = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
