@@ -9,4 +9,11 @@ public class SignLogic {
 		boolean result = dao.addUser(account);
 		return result;
 	}
+	
+	// ユーザーがすでに存在するかどうか（存在する場合true, 存在しない場合false）
+	public boolean executeQueryExist(String name) {
+		AccountDAO dao = new AccountDAO();
+		boolean result = dao.queryExist(name);
+		return result;
+	}
 }

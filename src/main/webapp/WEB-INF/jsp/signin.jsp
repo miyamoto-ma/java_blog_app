@@ -17,8 +17,8 @@
 	<p class="err_msg"><c:out value="※サインインに失敗しました" /></p>
 </c:if>
 <form class="l_form" action="SigninServlet" method="post">
-<span class="desc">ユーザー名(20文字以内 / 重複不可)</span>：<br>
-<input class="l_name input" type="text" name="name" required maxlength="20"><br>
+<span class="desc">ユーザー名(20文字以内 / 重複不可)</span>：<span id="caution_name" class="caution_name"></span><br>
+<input id="new_name" class="l_name input" type="text" name="name" required maxlength="20"><br>
 <span class="desc">パスワード(20文字以内)</span>：<br>
 <input class="l_pass input" type="password" name="pass" required maxlength="20"><br>
 <div class="l_button_set">
@@ -28,5 +28,7 @@
 </div>
 </form>
 </main>
+
+<script src="/blog/js/signin.js"></script>
 </body>
 </html>

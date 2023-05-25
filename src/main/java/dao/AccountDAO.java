@@ -14,6 +14,7 @@ public class AccountDAO {
 	String dbUser = dbConf.getDB_USER();
 	String dbPass = dbConf.getDB_PASS();
 	
+	// アカウントを取得
 	public Account findByAccount(Account account) {
 		Account r_account = null;
 		ReadJDBC jdbc = new ReadJDBC();
@@ -41,6 +42,7 @@ public class AccountDAO {
 		return r_account;
 	}
 	
+	// 新規アカウント登録
 	public boolean addUser(Account account) {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
@@ -60,4 +62,27 @@ public class AccountDAO {
 		}
 		return true;
 	}
+	
+	// 新規アカウントのNAMEがすでにあるかどうかの確認（Ajax用）
+	public boolean queryExist(String name) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		boolean result = false;
+		
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			String sql = "SELECT ID FROM ACCOUNTS WHERE NAME = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, name);
+			ResultSet rs = pStmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return result;
+	}
+	
+	
 }

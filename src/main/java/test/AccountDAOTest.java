@@ -6,10 +6,12 @@ import model.Account;
 public class AccountDAOTest {
 
 	public static void main(String[] args) {
-		testFindByAccountOK();		// ユーザーが見つかる場合のテスト
-		testFindByAccountNG();		// ユーザーが見つからない場合のテスト
-		testAddUserOK();				// ユーザーの追加成功のテスト
-		testAddUserNG();				// ユーザーの追加失敗のテスト
+//		testFindByAccountOK();		// ユーザーが見つかる場合のテスト
+//		testFindByAccountNG();		// ユーザーが見つからない場合のテスト
+//		testAddUserOK();				// ユーザーの追加成功のテスト
+//		testAddUserNG();				// ユーザーの追加失敗のテスト
+		testqueryExistOK();			// 同名のユーザーの存在確認成功のテスト
+		testqueryExistNG();			// 同名のユーザーの存在確認失敗のテスト
 	}
 	public static void testFindByAccountOK() {
 		Account account = new Account("manabu", "J_BlogTest");
@@ -55,6 +57,30 @@ public class AccountDAOTest {
 			System.out.println("testAddUserNG: 成功しました");
 		} else {
 			System.out.println("testAddUserNG: 失敗しました");
+		}
+	}
+	
+	public static void testqueryExistOK() {
+		// 登録済みユーザー名を確認しておく
+		String name = "test";
+		AccountDAO dao = new AccountDAO();
+		boolean result = dao.queryExist(name);
+		if(result) {
+			System.out.println("testqueryExistOK: 成功しました");
+		} else {
+			System.out.println("testqueryExistOK: 失敗しました");
+		}
+	}
+
+	public static void testqueryExistNG() {
+		// 登録にないユーザー名を確認しておく
+		String name = "test2";
+		AccountDAO dao = new AccountDAO();
+		boolean result = dao.queryExist(name);
+		if(!result) {
+			System.out.println("testqueryExistNG: 成功しました");
+		} else {
+			System.out.println("testqueryExistNG: 失敗しました");
 		}
 	}
 }

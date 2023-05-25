@@ -5,6 +5,11 @@
 	font-size: 16px;
 }
 
+.caution_name {
+	font-size: 14px;
+	color: darkred;
+}
+
 .input {
 	width: calc(100% - 20px);
 }

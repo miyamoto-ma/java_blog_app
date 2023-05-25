@@ -27,6 +27,7 @@ for(let i=0; i<goods.length; i++) {
 			})
 			.catch(err => {
 				alert("通信に失敗しました。");
+				console.log(err)
 			});
 		} else {
 			alert("ログインしてください。");
