@@ -18,13 +18,13 @@
 <c:choose>
 <c:when test="${loginUser == null}" >
 	<li><a href="LoginServlet">ログイン</a></li>
+	<li><a href="SigninServlet">サインイン</a>
 </c:when>
 <c:otherwise>
 	<li><c:out value="${loginUser.name}" />さんログイン中</li>
 </c:otherwise>
 </c:choose>
 <c:if test="${loginUser != null}">
-	<li><a href="SigninServlet">サインイン</a>
 	<li><a href="PostingServlet">投稿</a></li>
 	<li><a href="LogoutServlet">ログアウト</a></li>
 </c:if>
