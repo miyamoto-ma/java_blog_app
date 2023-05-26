@@ -79,4 +79,53 @@ public class GoodDAO {
 		}
 		return result;
 	}
+	
+	// 特定のBLOG_IDのいいねを削除（該当ブログ削除前に実行）
+	public boolean deleteBlogId(int blogId) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			// 該当BLOG_IDのデータが存在するか確認
+			String sql_conf = "SELECT * FROM GOODS WHERE BLOG_ID = ?";
+			PreparedStatement pStmt_conf = conn.prepareStatement(sql_conf);
+			pStmt_conf.setInt(1, blogId);
+			ResultSet rs = pStmt_conf.executeQuery();
+			if(rs.next()) {
+				// GOODSテーブルにデータがあるので、そのデータを削除
+				String sql_delete = "DELETE FROM GOODS WHERE BLOG_ID = ?";
+				PreparedStatement pStmt_delete = conn.prepareStatement(sql_delete);
+				pStmt_delete.setInt(1, blogId);
+				pStmt_delete.executeUpdate();
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	// 特定のUSER_IDのいいねを削除（該当ユーザー削除前に実行）
+	public boolean deleteUserId(int userId) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			// 該当USER_IDのデータが存在するか確認
+			String sql_conf = "SELECT * FROM GOODS WHERE USER_ID = ?";
+			PreparedStatement pStmt_conf = conn.prepareStatement(sql_conf);
+			pStmt_conf.setInt(1, userId);
+			ResultSet rs = pStmt_conf.executeQuery();
+			if(rs.next()) {
+				// GOODSテーブルにデータがあるので、そのデータを削除
+				String sql_delete = "DELETE FROM GOODS WHERE USER_ID = ?";
+				PreparedStatement pStmt_delete = conn.prepareStatement(sql_delete);
+				pStmt_delete.setInt(1, userId);
+				pStmt_delete.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 }

@@ -23,8 +23,9 @@ public class DeleteServlet extends HttpServlet {
 		int id = Integer.parseInt(h.escape(request.getParameter("id")));
 		BlogLogic bo = new BlogLogic();
 		boolean result = bo.executeDelete(id);
-		
 		String paramPage =request.getParameter("page");
+		System.out.println(result + "servlet");
+		System.out.println(id + "servletID");
 		if(result) {
 			// リダイレクト
 				response.sendRedirect("WelcomeServlet?page=" + paramPage);

@@ -179,6 +179,8 @@ public class BlogDAO {
 			pStmt.setInt(1, blogId);
 			// INSERT文を実行して、結果を取得
 			int result = pStmt.executeUpdate();
+			System.out.println(result + "dao");
+			System.out.println(blogId + "daoID");
 			if(result != 1) {
 				return false;
 			}
@@ -188,6 +190,31 @@ public class BlogDAO {
 		}
 		return true;
 	}
+	
+	// 特定のブログを削除（ユーザー削除前に実行）
+	public boolean deleteUserId(int userId) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			// 該当USER_IDのデータが存在するか確認
+			String sql_conf = "SELECT * FROM BLOGS WHERE USER_ID = ?";
+			PreparedStatement pStmt_conf = conn.prepareStatement(sql_conf);
+			pStmt_conf.setInt(1, userId);
+			ResultSet rs = pStmt_conf.executeQuery();
+			if(rs.next()) {
+				// BLOGSテーブルにデータがあるので、そのデータを削除
+				String sql_delete = "DELETE FROM BLOGS WHERE USER_ID = ?";
+				PreparedStatement pStmt_delete = conn.prepareStatement(sql_delete);
+				pStmt_delete.setInt(1, userId);
+				pStmt_delete.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 	
 	// ブログの編集処理
 	public boolean updateBlog(Blog blog) {

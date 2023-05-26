@@ -15,13 +15,15 @@ public class BlogDAOTest {
 //		testFindAll();			// ブログを取得できたかのテスト
 //		testFindByIdOK();			// ブログ1件分の取得成功のテスト
 //		testFindByIdNG();			// ブログ1件分の取得失敗のテスト
-		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
-		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
+//		testFindByPageOK();		// ブログを取得できた場合のテスト（ページネーション）
+//		testFindByPageNG();		// ブログを取得出来なかった場合のテスト（ページネーション）
 //		testGetTotal();			// ブログの総数を取得する
 //		testDeleteBlogOK();			// ブログを削除できた場合のテスト
 //		testDeleteBlogNG();			// ブログを削除できなかった場合のテスト
 //		testUpdateBlogOK();			// ブログを更新できた場合のテスト
 //		testUpdateBlogNG();			// ブログを更新できなかった場合のテスト
+//		testDeleteUserId();		// 特定ユーザーの投稿の一括削除のテスト
+		
 		}
 	public static void testAddBlogOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -130,7 +132,7 @@ public class BlogDAOTest {
 	public static void testDeleteBlogOK() {	
 		// サーバーで先にテストするIDが存在するか調べておく。
 		BlogDAO dao = new BlogDAO();
-		boolean result = dao.deleteBlog(2);
+		boolean result = dao.deleteBlog(133);
 		System.out.println(result);
 		if(result) {
 			System.out.println("testDeleteBlogOK: 成功しました");
@@ -172,4 +174,22 @@ public class BlogDAOTest {
 			System.out.println("testUpdateBlogNG: 失敗しました");
 		}
 	}
+	
+//	テスト用データ
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test331', 'test331', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test332', 'test332', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test333', 'test333', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test334', 'test334', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test335', 'test335', '2023-05-26 00:00:00');
+	public static void testDeleteUserId() {
+		int userId = 33;
+		BlogDAO dao = new BlogDAO();
+		boolean result = dao.deleteUserId(userId);
+		if(result) {
+			System.out.println("testDeleteUserIdOK: 成功しました");
+		} else {
+			System.out.println("testDeleteUserIdOK: 失敗しました");
+		}
+	}
+
 }

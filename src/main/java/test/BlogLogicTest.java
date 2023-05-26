@@ -14,11 +14,12 @@ public class BlogLogicTest {
 //		testExecuteFindAll();			// ブログ一覧取得のテスト
 //		testExecuteFindByIdOK();		// ブログ1件分取得成功のテスト
 //		testExecuteFindByIdNG();		// ブログ1件分取得失敗のテスト
-		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
-		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
+//		testExecuteFindByPageOK();		// ブログ１ページ分取得成功のテスト
+//		testExecuteFindByPageNG();		// ブログ１ページ分取得失敗のテスト
 //		testExecuteGetTotal();			// ブログ総件数取得のテスト
 //		testExecuteDeleteOK();				// ブログ削除成功のテスト
 //		testExecuteDeleteNG();				// ブログ削除失敗のテスト
+		testExecuteDeleteUserId();			// 特定ユーザーのブログ一括削除のテスト
 //		testExecuteUpdateOK();			// ブログ編集成功のテスト
 //		testExecuteUpdateNG();			// ブログ編集失敗のテスト
 	}
@@ -129,8 +130,9 @@ public class BlogLogicTest {
 	
 	public static void testExecuteDeleteOK() {
 		// 先にサーバーで、IDの存在を確認しておく。
+		// insert into blogs (user_id, title, text, datetime) values (33, 'test', 'test', '2023-05-26 00:00:00');
 		BlogLogic bo = new BlogLogic();
-		boolean result = bo.executeDelete(4);
+		boolean result = bo.executeDelete(134);
 		System.out.println(result);
 		if(result) {
 			System.out.println("testExecuteDeleteOK: 成功しました");
@@ -147,6 +149,23 @@ public class BlogLogicTest {
 			System.out.println("testExecuteDeleteOK: 成功しました");
 		} else {
 			System.out.println("testExecuteDeleteOK: 失敗しました");
+		}
+	}
+	
+//	テスト用データ
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test331', 'test331', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test332', 'test332', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test333', 'test333', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test334', 'test334', '2023-05-26 00:00:00');
+//	insert into blogs (user_id, title, text, datetime) values (33, 'test335', 'test335', '2023-05-26 00:00:00');
+	public static void testExecuteDeleteUserId() {
+		int userId = 33;
+		BlogLogic bo = new BlogLogic();
+		boolean result = bo.executeDeleteUserId(userId);
+		if(result) {
+			System.out.println("testExecuteDeleteUserId: 成功しました");
+		} else {
+			System.out.println("testExecuteDeleteUserId: 失敗しました");
 		}
 	}
 	

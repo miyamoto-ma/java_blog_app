@@ -46,12 +46,23 @@ public class BlogLogic {
 	// ブログの削除処理（投稿ユーザーのみ）
 	public boolean executeDelete(int id) {
 		BlogDAO dao = new BlogDAO();
-		return dao.deleteBlog(id);
+		boolean result = dao.deleteBlog(id);
+		System.out.println(result + "bo");
+		System.out.println(id + "boID");
+		return result;
+	}
+	
+	// 特定ユーザーのブログ一括削除処理
+	public boolean executeDeleteUserId(int userId) {
+		BlogDAO dao = new BlogDAO();
+		boolean result = dao.deleteUserId(userId);
+		return result;
 	}
 	
 	// ブログの編集処理（投稿ユーザーのみ）
 	public boolean executeUpdate(Blog blog) {
 		BlogDAO dao = new BlogDAO();
-		return dao.updateBlog(blog);
+		boolean result = dao.updateBlog(blog);
+		return result;
 	}
 }
