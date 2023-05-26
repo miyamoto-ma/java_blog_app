@@ -30,9 +30,19 @@
 	<li><a id="signout" href="javascript:void(0)">サインアウト</a></li>
 </c:if>
 </ul>
+
+
+
+<c:choose>
+	<c:when test="${ResultDel == \"true\" && ResultDel != null}">
+		<p class="normal_msg signout_msg">アカウントを削除しました。</p>
+	</c:when>
+	<c:when test="${ResultDel == \"false\" && ResultDel != null}">
+		<p class="err_msg signout_msg">アカウントの削除に失敗しました。</p>	
+	</c:when>
+</c:choose>
 </div>
 </header>
-
 
 <c:if test="${blogList != null}">
 <div class="content">

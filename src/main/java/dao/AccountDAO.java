@@ -85,4 +85,25 @@ public class AccountDAO {
 	}
 	
 	
+	// アカウントの削除
+	public boolean deleteUser(Account account) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		
+		try(Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			String sql = "DELETE FROM ACCOUNTS WHERE NAME = ? AND PASS = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, account.getName());
+			pStmt.setString(2, account.getPass());
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;		
+	}
+	
 }

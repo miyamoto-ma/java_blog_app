@@ -16,4 +16,11 @@ public class SignLogic {
 		boolean result = dao.queryExist(name);
 		return result;
 	}
+	
+	// サインアウト
+	public boolean executeDeleteUser(Account account) {
+		AccountDAO dao = new AccountDAO();
+		boolean result = dao.deleteUser(account);
+		return result;
+	}
 }

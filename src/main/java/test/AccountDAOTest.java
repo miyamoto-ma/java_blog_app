@@ -10,8 +10,10 @@ public class AccountDAOTest {
 //		testFindByAccountNG();		// ユーザーが見つからない場合のテスト
 //		testAddUserOK();				// ユーザーの追加成功のテスト
 //		testAddUserNG();				// ユーザーの追加失敗のテスト
-		testqueryExistOK();			// 同名のユーザーの存在確認成功のテスト
-		testqueryExistNG();			// 同名のユーザーの存在確認失敗のテスト
+//		testqueryExistOK();			// 同名のユーザーの存在確認成功のテスト
+//		testqueryExistNG();			// 同名のユーザーの存在確認失敗のテスト
+		testDeleteUserOK();			// ユーザーの削除成功のテスト
+		testDeleteUserNG();			// ユーザーの削除失敗のテスト
 	}
 	public static void testFindByAccountOK() {
 		Account account = new Account("manabu", "J_BlogTest");
@@ -81,6 +83,34 @@ public class AccountDAOTest {
 			System.out.println("testqueryExistNG: 成功しました");
 		} else {
 			System.out.println("testqueryExistNG: 失敗しました");
+		}
+	}
+	
+	public static void testDeleteUserOK() {
+		// 登録済みのユーザーを確認しておく
+		String name = "testtest";
+		String pass = "test";
+		Account account = new Account(name, pass);
+		AccountDAO dao = new AccountDAO();
+		boolean result = dao.deleteUser(account);
+		if(result) {
+			System.out.println("testDeleteUserOK: 成功しました");
+		} else {
+			System.out.println("testDeleteUserOK: 失敗しました");
+		}
+	}
+	
+	public static void testDeleteUserNG() {
+		// 未登録のユーザーを確認しておく
+		String name = "testtesttest";
+		String pass = "test";
+		Account account = new Account(name, pass);
+		AccountDAO dao = new AccountDAO();
+		boolean result = dao.deleteUser(account);
+		if(!result) {
+			System.out.println("testDeleteUserNG: 成功しました");
+		} else {
+			System.out.println("testDeleteUserNG: 失敗しました");
 		}
 	}
 }
