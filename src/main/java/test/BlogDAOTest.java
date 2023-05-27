@@ -12,6 +12,8 @@ public class BlogDAOTest {
 	public static void main(String[] args) {
 //		testAddBlogOK();		// ブログを追加できた場合のテスト
 //		testAddBlogNG();		// ブログを追加できなかった場合のテスト
+		testAddBlogResIDOK();		// ブログを追加できた場合のテスト（戻り値ブログのID）
+		testAddBlogResIDNG();		// ブログを追加出来なかった場合のテスト（戻り値ブログのID）
 //		testFindAll();			// ブログを取得できたかのテスト
 //		testFindByIdOK();			// ブログ1件分の取得成功のテスト
 //		testFindByIdNG();			// ブログ1件分の取得失敗のテスト
@@ -23,7 +25,6 @@ public class BlogDAOTest {
 //		testUpdateBlogOK();			// ブログを更新できた場合のテスト
 //		testUpdateBlogNG();			// ブログを更新できなかった場合のテスト
 //		testDeleteUserId();		// 特定ユーザーの投稿の一括削除のテスト
-		
 		}
 	public static void testAddBlogOK() {
 		LocalDateTime now = LocalDateTime.now();
@@ -55,6 +56,41 @@ public class BlogDAOTest {
 			System.out.println("testAddBlogNG: 失敗しました");
 		}
 	}
+	
+	public static void testAddBlogResIDOK() {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formatNow = dtf.format(now);
+		Blog blog = new Blog(1,"テスト", "これはテストです", "", formatNow);
+		BlogDAO dao = new BlogDAO();
+		int result = dao.addBlogResID(blog);
+		if(result != 0) {
+			System.out.println("testAddBlogResIDOK: 成功しました");
+		} else {
+			System.out.println("testAddBlogResIDOK: 失敗しました");
+		}
+		System.out.println(result);
+	}
+	
+	public static void testAddBlogResIDNG() {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formatNow = dtf.format(now);
+		String title = "";
+		for (int i=0; i<11; i++) {
+			title += "あいうえおかきくけこ";
+		}
+		Blog blog = new Blog(1,title, "これはテストです", "", formatNow);
+		BlogDAO dao = new BlogDAO();
+		int result = dao.addBlogResID(blog);
+		if(result == 0) {
+			System.out.println("testAddBlogResIDNG: 成功しました");
+		} else {
+			System.out.println("testAddBlogResIDNG: 失敗しました");
+		}
+		System.out.println(result);
+	}
+	
 	public static void testFindAll() {
 		BlogDAO dao = new BlogDAO();
 		List<Blog> result = dao.findAll();
@@ -175,20 +211,33 @@ public class BlogDAOTest {
 		}
 	}
 	
-//	テスト用データ
-//	insert into blogs (user_id, title, text, datetime) values (33, 'test331', 'test331', '2023-05-26 00:00:00');
-//	insert into blogs (user_id, title, text, datetime) values (33, 'test332', 'test332', '2023-05-26 00:00:00');
-//	insert into blogs (user_id, title, text, datetime) values (33, 'test333', 'test333', '2023-05-26 00:00:00');
-//	insert into blogs (user_id, title, text, datetime) values (33, 'test334', 'test334', '2023-05-26 00:00:00');
-//	insert into blogs (user_id, title, text, datetime) values (33, 'test335', 'test335', '2023-05-26 00:00:00');
-	public static void testDeleteUserId() {
-		int userId = 33;
+	// テスト用データを作成する関数（特定ユーザーの投稿の追加）
+	public static boolean addTestBlogs(int userId) {
 		BlogDAO dao = new BlogDAO();
-		boolean result = dao.deleteUserId(userId);
-		if(result) {
-			System.out.println("testDeleteUserIdOK: 成功しました");
-		} else {
-			System.out.println("testDeleteUserIdOK: 失敗しました");
+		for(int i=0; i<5; i++) {
+			Blog blog = new Blog(userId, "test" + i, "title" + i, "img" + i, "2000-01-01 00:00:00");
+			boolean res_add = dao.addBlog(blog);
+			if(!res_add) { 
+				System.out.println("テスト用ユーザーの登録に失敗しました"); 
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static void testDeleteUserId() {
+		// 存在するユーザーを調べておく（select * from accounts)
+		int userId = 33;
+		// ダミー投稿の追加
+		boolean res_add = addTestBlogs(userId);
+		if(res_add) {
+			BlogDAO dao = new BlogDAO();
+			boolean result = dao.deleteUserId(userId);
+			if(result) {
+				System.out.println("testDeleteUserIdOK: 成功しました");
+			} else {
+				System.out.println("testDeleteUserIdOK: 失敗しました");
+			}
 		}
 	}
 

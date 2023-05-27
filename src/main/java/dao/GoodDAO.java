@@ -81,7 +81,7 @@ public class GoodDAO {
 	}
 	
 	// 特定のBLOG_IDのいいねを削除（該当ブログ削除前に実行）
-	public boolean deleteBlogId(int blogId) {
+	public boolean deleteGoodByBlogId(int blogId) {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
@@ -105,7 +105,7 @@ public class GoodDAO {
 	}
 	
 	// 特定のUSER_IDのいいねを削除（該当ユーザー削除前に実行）
-	public boolean deleteUserId(int userId) {
+	public boolean deleteGoodByUserId(int userId) {
 		ReadJDBC jdbc = new ReadJDBC();
 		jdbc.read();
 		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {

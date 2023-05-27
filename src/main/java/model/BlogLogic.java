@@ -44,15 +44,13 @@ public class BlogLogic {
 	}
 	
 	// ブログの削除処理（投稿ユーザーのみ）
-	public boolean executeDelete(int id) {
+	public boolean executeDelete(int blogId) {
 		BlogDAO dao = new BlogDAO();
-		boolean result = dao.deleteBlog(id);
-		System.out.println(result + "bo");
-		System.out.println(id + "boID");
+		boolean result = dao.deleteBlog(blogId);
 		return result;
 	}
 	
-	// 特定ユーザーのブログ一括削除処理
+	// 特定ユーザーのブログ一括削除処理（ユーザーアカウント削除前）
 	public boolean executeDeleteUserId(int userId) {
 		BlogDAO dao = new BlogDAO();
 		boolean result = dao.deleteUserId(userId);

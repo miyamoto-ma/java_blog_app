@@ -43,6 +43,35 @@ public class BlogDAO {
 		return true;
 	}
 	
+	// ブログ追加処理(追加したブログのIDを返すバージョン）
+	public int addBlogResID(Blog blog) {
+		ReadJDBC jdbc = new ReadJDBC();
+		jdbc.read();
+		int newBlogId = 0;
+		// データベースへの接続
+		try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPass)) {
+			// INSERT文の準備
+			String sql = "INSERT INTO BLOGS (USER_ID, TITLE, TEXT, IMG, DATETIME) VALUES (?, ?, ?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
+			pStmt.setInt(1, blog.getUserId());
+			pStmt.setString(2, blog.getTitle());
+			pStmt.setString(3, blog.getText());
+			pStmt.setString(4, blog.getImg());
+			pStmt.setString(5, blog.getDatetime());
+			pStmt.executeUpdate();
+			// INSERT文を実行して、結果を取得
+			ResultSet rs = pStmt.getGeneratedKeys();
+			if(rs.next()) {
+				newBlogId = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return newBlogId;
+		}
+		return newBlogId;
+	}
+	
 	
 	// ブログ取得処理（すべてのブログ）
 	public List<Blog> findAll() {
@@ -179,8 +208,6 @@ public class BlogDAO {
 			pStmt.setInt(1, blogId);
 			// INSERT文を実行して、結果を取得
 			int result = pStmt.executeUpdate();
-			System.out.println(result + "dao");
-			System.out.println(blogId + "daoID");
 			if(result != 1) {
 				return false;
 			}
