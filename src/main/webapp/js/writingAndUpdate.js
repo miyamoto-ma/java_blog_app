@@ -56,7 +56,6 @@ const char_title = document.getElementById("char_title");	// input（タイト�
 const textarea_text = document.getElementById("p_text");	// textarea（内容）の要素
 const char_text = document.getElementById("char_text");		// textarea（内容）の文字数を表示する要素
 
-// チェンジイベントで呼び出す関数
 // target: 対象要素、char_span:現在の文字数の出力場所
 function charCount(target, char_span) {
 	target.addEventListener('keyup', () => {
