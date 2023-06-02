@@ -49,7 +49,7 @@ input_file.addEventListener('change', handleFileSelect);
 
 
 /**
- * 必須の文字列が「空でないか」「文字制限を超えていないか」をチェックする
+ * input要素の現在の入力文字数を出力する
  */
 const input_title = document.getElementById("p_title");		// input（タイトル）の要素
 const char_title = document.getElementById("char_title");	// input（タイトル）の文字数を表示する要素
@@ -57,7 +57,7 @@ const textarea_text = document.getElementById("p_text");	// textarea（内容）
 const char_text = document.getElementById("char_text");		// textarea（内容）の文字数を表示する要素
 
 // チェンジイベントで呼び出す関数
-// target: 対象要素、max_length: 最大文字数
+// target: 対象要素、char_span:現在の文字数の出力場所
 function charCount(target, char_span) {
 	target.addEventListener('keyup', () => {
 		 char_span.textContent = target.value.length;
@@ -67,8 +67,9 @@ function charCount(target, char_span) {
 charCount(input_title, char_title);
 charCount(textarea_text, char_text);
 
-
-// 画像プレビュー
+/**
+ * 画像プレビュー
+ */
 let file = document.getElementById("file");
 let reader = new FileReader();
 
